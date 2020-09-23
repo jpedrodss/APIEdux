@@ -41,7 +41,7 @@ namespace APIEdux
                     Contact = new OpenApiContact
                     {
                         Name = "Equipe 1",
-                        Email = string.Empty,
+                        Email = "equipe@gmail.com",
                         Url = new Uri("https://twitter.com/spboyer"),
                     },
                     License = new OpenApiLicense
