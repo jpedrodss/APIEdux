@@ -53,3 +53,15 @@ C:\Users\João Pedro\Documents\Visual Studio\APIEdux\bin\Debug\netcoreapp3.1\run
 C:\Users\João Pedro\Documents\Visual Studio\APIEdux\bin\Debug\netcoreapp3.1\Microsoft.OpenApi.dll
 C:\Users\João Pedro\Documents\Visual Studio\APIEdux\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.Swagger.dll
 C:\Users\João Pedro\Documents\Visual Studio\APIEdux\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
+C:\Users\João Pedro\Documents\Visual Studio\APIEdux\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
+C:\Users\João Pedro\Documents\Visual Studio\APIEdux\bin\Debug\netcoreapp3.1\APIEdux.deps.json
+C:\Users\João Pedro\Documents\Visual Studio\APIEdux\bin\Debug\netcoreapp3.1\APIEdux.runtimeconfig.json
+C:\Users\João Pedro\Documents\Visual Studio\APIEdux\bin\Debug\netcoreapp3.1\APIEdux.runtimeconfig.dev.json
+C:\Users\João Pedro\Documents\Visual Studio\APIEdux\bin\Debug\netcoreapp3.1\APIEdux.dll
+C:\Users\João Pedro\Documents\Visual Studio\APIEdux\bin\Debug\netcoreapp3.1\APIEdux.pdb
+C:\Users\João Pedro\Documents\Visual Studio\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.csproj.CoreCompileInputs.cache
+C:\Users\João Pedro\Documents\Visual Studio\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\João Pedro\Documents\Visual Studio\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.MvcApplicationPartsAssemblyInfo.cache
+C:\Users\João Pedro\Documents\Visual Studio\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.dll
+C:\Users\João Pedro\Documents\Visual Studio\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.pdb
+C:\Users\João Pedro\Documents\Visual Studio\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.genruntimeconfig.cache
