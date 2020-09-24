@@ -7,9 +7,11 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APIEdux.Contexts;
 using APIEdux.Domains;
+using Microsoft.AspNetCore.Authorization;
 
 namespace APIEdux.Controllers
 {
+    [Authorize(Roles = "Professor")]
     [Route("api/[controller]")]
     [ApiController]
     public class PerfilController : ControllerBase
