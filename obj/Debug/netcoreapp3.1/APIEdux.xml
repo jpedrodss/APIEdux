@@ -126,6 +126,37 @@
             </summary>
             <returns>Lista dos perfís</returns>
         </member>
+        <member name="M:APIEdux.Repositories.TurmaRepository.Adicionar(APIEdux.Domains.Turma)">
+            <summary>
+            Adiciona uma Turma
+            </summary>
+            <param name="turma">Turma para ser adicionada</param>
+        </member>
+        <member name="M:APIEdux.Repositories.TurmaRepository.BuscarID(System.Int32)">
+            <summary>
+            Busca uma Turma por ID
+            </summary>
+            <param name="id">ID para pesquisa</param>
+            <returns>Turma pesquisada</returns>
+        </member>
+        <member name="M:APIEdux.Repositories.TurmaRepository.Editar(APIEdux.Domains.Turma)">
+            <summary>
+            Edita uma Turma
+            </summary>
+            <param name="turma">Turma a ser editada</param>
+        </member>
+        <member name="M:APIEdux.Repositories.TurmaRepository.Excluir(System.Int32)">
+            <summary>
+            Exclui uma Turma
+            </summary>
+            <param name="id">ID da Turma</param>
+        </member>
+        <member name="M:APIEdux.Repositories.TurmaRepository.Listar">
+            <summary>
+            Lista todas as turmas
+            </summary>
+            <returns>Lista das turmas </returns>
+        </member>
         <member name="M:APIEdux.Repositories.UsuarioRepository.Adicionar(APIEdux.Domains.Usuario)">
             <summary>
             Adiciona um Usuario
