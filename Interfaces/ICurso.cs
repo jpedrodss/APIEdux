@@ -9,7 +9,7 @@ namespace APIEdux.Interfaces
     interface ICurso
     {
         void Adicionar(Curso curso);
-        Curso Excluir(int id);
+        void Excluir(int id);
         void Editar(Curso curso);
         List<Curso> Listar();
         Curso BuscarID(int id);

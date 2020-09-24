@@ -1,4 +1,5 @@
-﻿using APIEdux.Domains;
+﻿using APIEdux.Contexts;
+using APIEdux.Domains;
 using APIEdux.Interfaces;
 using System;
 using System.Collections.Generic;
@@ -9,30 +10,91 @@ namespace APIEdux.Repositories
 {
     public class InstituicaoRepository : IInstituicao
     {
-        private readonly InstituicaoRepository _instituicaoRepository;
+
+        private readonly EduxContext _ctx;
+
         public InstituicaoRepository()
         {
-            _instituicaoRepository = new InstituicaoRepository();
+            _ctx = new EduxContext();
         }
+
 
         public void Adicionar(Instituicao instituicao)
         {
-            throw new NotImplementedException();
+            try
+            {
+                _ctx.Instituicao.Add(instituicao);
+
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
+
+
 
         public Instituicao BuscarID(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+              return  _ctx.Instituicao.Find(id);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
+
+        /// <summary>
+        /// Edita Valores do Objeto Instituiçao
+        /// </summary>
+        /// <param name="instituicao"></param>
         public void Editar(Instituicao instituicao)
         {
-            throw new NotImplementedException();
+            try
+            {
+                //Busca Instituicao
+                Instituicao instituicao1 = BuscarID(instituicao.IdInstituicao);
+
+                if (instituicao1 == null)
+                    throw new Exception("Instituição não encontrada");
+
+                instituicao1.Nome = instituicao.Nome;
+                instituicao1.Logradouro = instituicao.Logradouro;
+                instituicao1.Numero = instituicao.Numero;
+                instituicao1.Complemento = instituicao.Complemento;
+                instituicao1.Bairro = instituicao.Bairro;
+                instituicao1.Cidade = instituicao.Cidade;
+                instituicao1.Uf = instituicao.Uf;
+                instituicao1.Cep = instituicao.Cep;
+                _ctx.Instituicao.Update(instituicao1);
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
         }
 
-        public Instituicao Excluir(int id)
+        public void Excluir(int id)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Instituicao instituicao = BuscarID(id);
+
+                if (instituicao = null)
+                    throw new Exception("Instituição não encontrada");
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
 
         public List<Instituicao> Listar()

@@ -9,7 +9,7 @@ namespace APIEdux.Interfaces
     interface IInstituicao
     {
         void Adicionar(Instituicao instituicao);
-        Instituicao Excluir(int id);
+        void Excluir(int id);
         void Editar(Instituicao instituicao);
         List<Instituicao> Listar();
         Instituicao BuscarID(int id);
