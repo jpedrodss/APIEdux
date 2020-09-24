@@ -86,20 +86,23 @@ namespace APIEdux.Repositories
             try
             {
                 Instituicao instituicao = BuscarID(id);
-
-                if (instituicao = null)
+                if(instituicao == null)
                     throw new Exception("Instituição não encontrada");
-            }
-            catch (Exception)
-            {
 
-                throw;
+                _ctx.Instituicao.Remove(instituicao);
+
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
             }
         }
 
         public List<Instituicao> Listar()
         {
-            throw new NotImplementedException();
+            List<Instituicao> instituicaos = _ctx.Instituicao.ToList();
+            return instituicaos;
         }
     }
 }
