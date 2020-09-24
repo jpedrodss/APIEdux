@@ -18,14 +18,21 @@ namespace APIEdux.Controllers
     {
         private EduxContext _context = new EduxContext();
 
-        // GET: api/Turma
+        /// <summary>
+        /// Lista todas as turmas.
+        /// </summary>
+        /// <returns>Lista das turmas cadastrados</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Turma>>> GetTurma()
         {
             return await _context.Turma.ToListAsync();
         }
 
-        // GET: api/Turma/5
+        /// <summary>
+        /// Procura uma Turma específico por ID
+        /// </summary>
+        /// <param name="id">ID de pesquisa</param>
+        /// <returns>Turma pesquisada</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Turma>> GetTurma(int id)
         {
@@ -39,9 +46,12 @@ namespace APIEdux.Controllers
             return turma;
         }
 
-        // PUT: api/Turma/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Edita uma Turma
+        /// </summary>
+        /// <param name="id">ID para pesquisar a Turma</param>
+        /// <param name="turma">Turma a ser editada</param>
+        /// <returns>Resultado da edição</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutTurma(int id, Turma turma)
         {
@@ -71,9 +81,11 @@ namespace APIEdux.Controllers
             return NoContent();
         }
 
-        // POST: api/Turma
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Adiciona um perfil
+        /// </summary>
+        /// <param name="turma">Turma a ser adicionada</param>
+        /// <returns>Turma adicionada</returns>
         [HttpPost]
         public async Task<ActionResult<Turma>> PostTurma(Turma turma)
         {
@@ -83,7 +95,11 @@ namespace APIEdux.Controllers
             return CreatedAtAction("GetTurma", new { id = turma.IdTurma }, turma);
         }
 
-        // DELETE: api/Turma/5
+        /// <summary>
+        /// Exclui uma turma
+        /// </summary>
+        /// <param name="id">ID da turma para ser excluida</param>
+        /// <returns>Status code da ação</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<Turma>> DeleteTurma(int id)
         {
