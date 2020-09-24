@@ -1,0 +1,74 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>APIEdux</name>
+    </assembly>
+    <members>
+        <member name="M:APIEdux.Controllers.PerfilController.GetPerfil">
+            <summary>
+            Lista todos os perfís.
+            </summary>
+            <returns>Lista dos perfís cadastrados</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.PerfilController.GetPerfil(System.Int32)">
+            <summary>
+            Procura um perfil específico por ID
+            </summary>
+            <param name="id">ID de pesquisa</param>
+            <returns>Perfil pesquisado</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.PerfilController.PutPerfil(System.Int32,APIEdux.Domains.Perfil)">
+            <summary>
+            Edita um perfil
+            </summary>
+            <param name="id">ID para pesquisar o perfil</param>
+            <param name="perfil">Perfil a ser editado</param>
+            <returns>Resultado da edição</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.PerfilController.PostPerfil(APIEdux.Domains.Perfil)">
+            <summary>
+            Adiciona um perfil
+            </summary>
+            <param name="perfil">Perfil a ser adicionado</param>
+            <returns>Perfil adicionado</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.PerfilController.DeletePerfil(System.Int32)">
+            <summary>
+            Exclui um perfil
+            </summary>
+            <param name="id">ID do perfil para ser excluido</param>
+            <returns>Status code da ação</returns>
+        </member>
+        <member name="M:APIEdux.Repositories.PerfilRepository.Adicionar(APIEdux.Domains.Perfil)">
+            <summary>
+            Adiciona um tipo perfil
+            </summary>
+            <param name="perfil">Perfil para ser adicionado</param>
+        </member>
+        <member name="M:APIEdux.Repositories.PerfilRepository.BuscarID(System.Int32)">
+            <summary>
+            Busca um tipo perfil por ID
+            </summary>
+            <param name="id">ID para pesquisa</param>
+            <returns>Perfil pesquisado</returns>
+        </member>
+        <member name="M:APIEdux.Repositories.PerfilRepository.Editar(APIEdux.Domains.Perfil)">
+            <summary>
+            Edita um tipo de perfil
+            </summary>
+            <param name="perfil">Perfil a ser editado</param>
+        </member>
+        <member name="M:APIEdux.Repositories.PerfilRepository.Excluir(System.Int32)">
+            <summary>
+            Exclui um perfil
+            </summary>
+            <param name="id">ID do perfil</param>
+        </member>
+        <member name="M:APIEdux.Repositories.PerfilRepository.Listar">
+            <summary>
+            Lista todos os perfís
+            </summary>
+            <returns>Lista dos perfís</returns>
+        </member>
+    </members>
+</doc>
