@@ -7,36 +7,35 @@ using System.Threading.Tasks;
 
 namespace APIEdux.Repositories
 {
-    public class CursoRepository : ICurso
+    public class InstituicaoRepository : IInstituicao
     {
-        private readonly CursoRepository _cursoRepository;
-
-        public CursoRepository()
+        private readonly InstituicaoRepository _instituicaoRepository;
+        public InstituicaoRepository()
         {
-            _cursoRepository = new CursoRepository();
+            _instituicaoRepository = new InstituicaoRepository();
         }
 
-        public void Adicionar(Curso curso)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Curso BuscarID(int id)
+        public void Adicionar(Instituicao instituicao)
         {
             throw new NotImplementedException();
         }
 
-        public void Editar(Curso curso)
+        public Instituicao BuscarID(int id)
         {
             throw new NotImplementedException();
         }
 
-        public Curso Excluir(int id)
+        public void Editar(Instituicao instituicao)
         {
             throw new NotImplementedException();
         }
 
-        public List<Curso> Listar()
+        public Instituicao Excluir(int id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<Instituicao> Listar()
         {
             throw new NotImplementedException();
         }
