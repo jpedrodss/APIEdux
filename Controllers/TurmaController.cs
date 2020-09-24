@@ -82,7 +82,7 @@ namespace APIEdux.Controllers
         }
 
         /// <summary>
-        /// Adiciona um perfil
+        /// Adiciona uma turma
         /// </summary>
         /// <param name="turma">Turma a ser adicionada</param>
         /// <returns>Turma adicionada</returns>

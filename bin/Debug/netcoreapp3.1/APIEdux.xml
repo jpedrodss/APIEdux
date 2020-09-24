@@ -60,6 +60,41 @@
             <param name="id">ID do perfil para ser excluido</param>
             <returns>Status code da ação</returns>
         </member>
+        <member name="M:APIEdux.Controllers.TurmaController.GetTurma">
+            <summary>
+            Lista todas as turmas.
+            </summary>
+            <returns>Lista das turmas cadastrados</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.TurmaController.GetTurma(System.Int32)">
+            <summary>
+            Procura uma Turma específico por ID
+            </summary>
+            <param name="id">ID de pesquisa</param>
+            <returns>Turma pesquisada</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.TurmaController.PutTurma(System.Int32,APIEdux.Domains.Turma)">
+            <summary>
+            Edita uma Turma
+            </summary>
+            <param name="id">ID para pesquisar a Turma</param>
+            <param name="turma">Turma a ser editada</param>
+            <returns>Resultado da edição</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.TurmaController.PostTurma(APIEdux.Domains.Turma)">
+            <summary>
+            Adiciona um perfil
+            </summary>
+            <param name="turma">Turma a ser adicionada</param>
+            <returns>Turma adicionada</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.TurmaController.DeleteTurma(System.Int32)">
+            <summary>
+            Exclui uma turma
+            </summary>
+            <param name="id">ID da turma para ser excluida</param>
+            <returns>Status code da ação</returns>
+        </member>
         <member name="M:APIEdux.Controllers.UsuarioController.GetUsuario">
             <summary>
             Lista todos os usuarios.
