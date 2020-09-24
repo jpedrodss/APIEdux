@@ -10,7 +10,7 @@ namespace APIEdux.Interfaces
     {
         void Adicionar(Usuario user);
         void Excluir(int id);
-        void Editar(Usuario user);
+        void Editar(Usuario usuario);
         List<Usuario> Listar();
         Usuario BuscarID(int id);
     }

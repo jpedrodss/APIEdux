@@ -4,6 +4,27 @@
         <name>APIEdux</name>
     </assembly>
     <members>
+        <member name="M:APIEdux.Controllers.LoginController.AuthenticateUser(APIEdux.Domains.Usuario)">
+            <summary>
+            Autentifica o usuario
+            </summary>
+            <param name="login">Objeto para conseguir informações de login</param>
+            <returns>Status code da ação</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.LoginController.GenerateJSONWebToken(APIEdux.Domains.Usuario)">
+            <summary>
+            Gera o token de acesso
+            </summary>
+            <param name="userInfo">Informações de usuário</param>
+            <returns>Token de acesso</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.LoginController.Login(APIEdux.Domains.Usuario)">
+            <summary>
+            Realiza o login do usuario
+            </summary>
+            <param name="login">Objeto para conseguir informações do usuário</param>
+            <returns>Status code do login</returns>
+        </member>
         <member name="M:APIEdux.Controllers.PerfilController.GetPerfil">
             <summary>
             Lista todos os perfís.
@@ -39,6 +60,41 @@
             <param name="id">ID do perfil para ser excluido</param>
             <returns>Status code da ação</returns>
         </member>
+        <member name="M:APIEdux.Controllers.UsuarioController.GetUsuario">
+            <summary>
+            Lista todos os usuarios.
+            </summary>
+            <returns>Lista dos usuarios cadastrados</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.UsuarioController.GetUsuario(System.Int32)">
+            <summary>
+            Procura um Usuario específico por ID
+            </summary>
+            <param name="id">ID de pesquisa</param>
+            <returns>Usuario pesquisado</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.UsuarioController.PutUsuario(System.Int32,APIEdux.Domains.Usuario)">
+            <summary>
+            Edita um Usuario
+            </summary>
+            <param name="id">ID para pesquisar o Usuario</param>
+            <param name="usuario">Usuario a ser editado</param>
+            <returns>Resultado da edição</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.UsuarioController.PostUsuario(APIEdux.Domains.Usuario)">
+            <summary>
+            Adiciona um Usuario
+            </summary>
+            <param name="usuario">Usuario a ser adicionado</param>
+            <returns>Usuario adicionado</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.UsuarioController.DeleteUsuario(System.Int32)">
+            <summary>
+            Exclui um Usuario
+            </summary>
+            <param name="id">ID do Usuario para ser excluido</param>
+            <returns>Status code da ação</returns>
+        </member>
         <member name="M:APIEdux.Repositories.PerfilRepository.Adicionar(APIEdux.Domains.Perfil)">
             <summary>
             Adiciona um tipo perfil
@@ -69,6 +125,37 @@
             Lista todos os perfís
             </summary>
             <returns>Lista dos perfís</returns>
+        </member>
+        <member name="M:APIEdux.Repositories.UsuarioRepository.Adicionar(APIEdux.Domains.Usuario)">
+            <summary>
+            Adiciona um Usuario
+            </summary>
+            <param name="usuario">Usuario para ser adicionado</param>
+        </member>
+        <member name="M:APIEdux.Repositories.UsuarioRepository.BuscarID(System.Int32)">
+            <summary>
+            Busca um Usuario por ID
+            </summary>
+            <param name="id">ID para pesquisa</param>
+            <returns>Usuario pesquisado</returns>
+        </member>
+        <member name="M:APIEdux.Repositories.UsuarioRepository.Editar(APIEdux.Domains.Usuario)">
+            <summary>
+            Edita um Usuario
+            </summary>
+            <param name="usuario">Usuario a ser editado</param>
+        </member>
+        <member name="M:APIEdux.Repositories.UsuarioRepository.Excluir(System.Int32)">
+            <summary>
+            Exclui um Usuario
+            </summary>
+            <param name="id">ID do Usuario</param>
+        </member>
+        <member name="M:APIEdux.Repositories.UsuarioRepository.Listar">
+            <summary>
+            Lista todos os usuarios
+            </summary>
+            <returns>Lista dos usuarios</returns>
         </member>
     </members>
 </doc>
