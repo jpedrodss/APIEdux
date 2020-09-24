@@ -18,33 +18,43 @@ namespace APIEdux.Repositories
             _ctx = new EduxContext();
         }
 
-
+        /// <summary>
+        /// Adiciona uma novo Objeto instituição
+        /// </summary>
+        /// <param name="instituicao"></param>
         public void Adicionar(Instituicao instituicao)
         {
             try
             {
+                //Adiciona Instituição
                 _ctx.Instituicao.Add(instituicao);
 
+                //Salva mudanças
                 _ctx.SaveChanges();
             }
             catch (Exception ex)
             {
-
+                //Retorna mensagem de erro caso ocorra
                 throw new Exception(ex.Message);
             }
         }
 
 
-
+        /// <summary>
+        /// Localiza Objeto Instituição atraves do Id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public Instituicao BuscarID(int id)
         {
             try
             {
+                //Localiza Instituição
               return  _ctx.Instituicao.Find(id);
             }
             catch (Exception ex)
             {
-
+                //Retorna mensagem de erro caso ocorra
                 throw new Exception(ex.Message);
             }
         }
@@ -77,10 +87,15 @@ namespace APIEdux.Repositories
             }
             catch (Exception ex)
             {
+                //Retorna mensagem de erro caso ocorra
                 throw new Exception(ex.Message);
             }
         }
 
+        /// <summary>
+        /// Exclui valores do Objeto Instituição
+        /// </summary>
+        /// <param name="id"></param>
         public void Excluir(int id)
         {
             try
@@ -95,10 +110,15 @@ namespace APIEdux.Repositories
             }
             catch (Exception ex)
             {
+                //Retorna mensagem de erro caso ocorra
                 throw new Exception(ex.Message);
             }
         }
 
+        /// <summary>
+        /// Lista Objeto instituição
+        /// </summary>
+        /// <returns>Lista de instituições</returns>
         public List<Instituicao> Listar()
         {
             List<Instituicao> instituicaos = _ctx.Instituicao.ToList();

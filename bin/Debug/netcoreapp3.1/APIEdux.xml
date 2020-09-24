@@ -83,7 +83,7 @@
         </member>
         <member name="M:APIEdux.Controllers.TurmaController.PostTurma(APIEdux.Domains.Turma)">
             <summary>
-            Adiciona um perfil
+            Adiciona uma turma
             </summary>
             <param name="turma">Turma a ser adicionada</param>
             <returns>Turma adicionada</returns>
@@ -129,6 +129,37 @@
             </summary>
             <param name="id">ID do Usuario para ser excluido</param>
             <returns>Status code da ação</returns>
+        </member>
+        <member name="M:APIEdux.Repositories.InstituicaoRepository.Adicionar(APIEdux.Domains.Instituicao)">
+            <summary>
+            Adiciona uma novo Objeto instituição
+            </summary>
+            <param name="instituicao"></param>
+        </member>
+        <member name="M:APIEdux.Repositories.InstituicaoRepository.BuscarID(System.Int32)">
+            <summary>
+            Localiza Objeto Instituição atraves do Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APIEdux.Repositories.InstituicaoRepository.Editar(APIEdux.Domains.Instituicao)">
+            <summary>
+            Edita Valores do Objeto Instituiçao
+            </summary>
+            <param name="instituicao"></param>
+        </member>
+        <member name="M:APIEdux.Repositories.InstituicaoRepository.Excluir(System.Int32)">
+            <summary>
+            Exclui valores do Objeto Instituição
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:APIEdux.Repositories.InstituicaoRepository.Listar">
+            <summary>
+            Lista Objeto instituição
+            </summary>
+            <returns>Lista de instituições</returns>
         </member>
         <member name="M:APIEdux.Repositories.PerfilRepository.Adicionar(APIEdux.Domains.Perfil)">
             <summary>
