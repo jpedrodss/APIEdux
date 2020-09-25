@@ -130,6 +130,37 @@
             <param name="id">ID do Usuario para ser excluido</param>
             <returns>Status code da ação</returns>
         </member>
+        <member name="M:APIEdux.Repositories.CursoRepository.Adicionar(APIEdux.Domains.Curso)">
+            <summary>
+            Adiciona Novo objeto Curso
+            </summary>
+            <param name="curso"></param>
+        </member>
+        <member name="M:APIEdux.Repositories.CursoRepository.BuscarID(System.Int32)">
+            <summary>
+            Localiza Objeto Curso
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:APIEdux.Repositories.CursoRepository.Editar(APIEdux.Domains.Curso)">
+            <summary>
+            Edita Objeto Curso
+            </summary>
+            <param name="curso"></param>
+        </member>
+        <member name="M:APIEdux.Repositories.CursoRepository.Excluir(System.Int32)">
+            <summary>
+            Exclui Objeto Curso
+            </summary>
+            <param name="id"></param>
+        </member>
+        <member name="M:APIEdux.Repositories.CursoRepository.Listar">
+            <summary>
+            Lista todos os itens do Objeto Curso
+            </summary>
+            <returns></returns>
+        </member>
         <member name="M:APIEdux.Repositories.InstituicaoRepository.Adicionar(APIEdux.Domains.Instituicao)">
             <summary>
             Adiciona uma novo Objeto instituição

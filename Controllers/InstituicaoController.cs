@@ -12,23 +12,30 @@ namespace APIEdux.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class InstituicaosController : ControllerBase
+    public class InstituicaoController : ControllerBase
     {
         private readonly EduxContext _context;
 
-        public InstituicaosController(EduxContext context)
+        public InstituicaoController(EduxContext context)
         {
             _context = context;
         }
 
-        // GET: api/Instituicaos
+        /// <summary>
+        /// Lista intens do Objeto Instituição 
+        /// </summary>
+        /// <returns>Lista Instituições</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Instituicao>>> GetInstituicao()
         {
             return await _context.Instituicao.ToListAsync();
         }
 
-        // GET: api/Instituicaos/5
+        /// <summary>
+        /// Busca Objeto Instituição por id 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Instituição</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Instituicao>> GetInstituicao(int id)
         {
@@ -42,9 +49,12 @@ namespace APIEdux.Controllers
             return instituicao;
         }
 
-        // PUT: api/Instituicaos/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Edita itens do objeto instituição
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="instituicao"></param>
+        /// <returns>Edição Instituição</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutInstituicao(int id, Instituicao instituicao)
         {
@@ -74,9 +84,11 @@ namespace APIEdux.Controllers
             return NoContent();
         }
 
-        // POST: api/Instituicaos
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Adiciona Itens no objeto Instituição
+        /// </summary>
+        /// <param name="instituicao"></param>
+        /// <returns>Adicionarintens no objeto instituição</returns>
         [HttpPost]
         public async Task<ActionResult<Instituicao>> PostInstituicao(Instituicao instituicao)
         {
@@ -86,7 +98,11 @@ namespace APIEdux.Controllers
             return CreatedAtAction("GetInstituicao", new { id = instituicao.IdInstituicao }, instituicao);
         }
 
-        // DELETE: api/Instituicaos/5
+        /// <summary>
+        /// Remove Objeto Curso
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Remove Objeto Curso</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<Instituicao>> DeleteInstituicao(int id)
         {
