@@ -83,7 +83,7 @@
         </member>
         <member name="M:APIEdux.Controllers.TurmaController.PostTurma(APIEdux.Domains.Turma)">
             <summary>
-            Adiciona um perfil
+            Adiciona uma turma
             </summary>
             <param name="turma">Turma a ser adicionada</param>
             <returns>Turma adicionada</returns>

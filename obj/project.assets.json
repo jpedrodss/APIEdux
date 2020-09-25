@@ -8975,19 +8975,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\João Pedro\\.nuget\\packages\\": {}
+    "C:\\Users\\ale\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\João Pedro\\Documents\\Visual Studio\\APIEdux\\APIEdux.csproj",
+      "projectUniqueName": "C:\\Users\\ale\\Desktop\\Senai\\2ºTermo\\APIEdux\\APIEdux.csproj",
       "projectName": "APIEdux",
-      "projectPath": "C:\\Users\\João Pedro\\Documents\\Visual Studio\\APIEdux\\APIEdux.csproj",
-      "packagesPath": "C:\\Users\\João Pedro\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\João Pedro\\Documents\\Visual Studio\\APIEdux\\obj\\",
+      "projectPath": "C:\\Users\\ale\\Desktop\\Senai\\2ºTermo\\APIEdux\\APIEdux.csproj",
+      "packagesPath": "C:\\Users\\ale\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\ale\\Desktop\\Senai\\2ºTermo\\APIEdux\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\João Pedro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ale\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9074,7 +9074,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
       }
     }
   }
