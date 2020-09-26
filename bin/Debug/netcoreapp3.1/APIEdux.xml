@@ -4,6 +4,42 @@
         <name>APIEdux</name>
     </assembly>
     <members>
+        <member name="M:APIEdux.Controllers.AlunoTurmaController.GetAlunoTurma">
+            <summary>
+            Lista todos os AlunoTurma
+            </summary>
+            <returns> retorna todos os AlunoTurma cadastrados </returns>
+        </member>
+        <member name="M:APIEdux.Controllers.AlunoTurmaController.GetAlunoTurma(System.Int32)">
+            <summary>
+            Procura um AlunoTurma expecifico por ID
+            </summary>
+            <param name="id"> id de pesquisa </param>
+            <returns> AlunoTurma pesquisado </returns>
+        </member>
+        <member name="M:APIEdux.Controllers.AlunoTurmaController.PutAlunoTurma(System.Int32,APIEdux.Domains.AlunoTurma)">
+            <summary>
+            Edita um AlunoTurma
+            </summary>
+            <param name="id">ID para pesquisar o perfil</param>
+            <param name="alunoTurma">AlunoTurma para ser editado</param>
+            <returns>Resultado da edição</returns>
+            
+        </member>
+        <member name="M:APIEdux.Controllers.AlunoTurmaController.PostAlunoTurma(APIEdux.Domains.AlunoTurma)">
+            <summary>
+            Adiciona um perfil
+            </summary>
+            <param name="alunoTurma">AlunoTurma a ser adicionado</param>
+            <returns>AlunoTurma adicionado</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.AlunoTurmaController.DeleteAlunoTurma(System.Int32)">
+            <summary>
+            Exclui um AlunoTurma
+            </summary>
+            <param name="id">ID do AlunoTurma para ser excluido</param>
+            <returns>Status code da ação</returns>
+        </member>
         <member name="M:APIEdux.Controllers.LoginController.AuthenticateUser(APIEdux.Domains.Usuario)">
             <summary>
             Autentifica o usuario
@@ -129,6 +165,39 @@
             </summary>
             <param name="id">ID do Usuario para ser excluido</param>
             <returns>Status code da ação</returns>
+        </member>
+        <member name="M:APIEdux.Repositories.AlunoTurmaRepository.Adicionar(APIEdux.Domains.AlunoTurma)">
+            <summary>
+            Adiciona um tipo alunoTurma
+            </summary>
+            <param name="alunoTurma">alunoTurma para ser adicionado</param>
+        </member>
+        <member name="M:APIEdux.Repositories.AlunoTurmaRepository.BuscarID(System.Int32)">
+            <summary>
+            Busca um tipo alunoTurma por ID
+            </summary>
+            <param name="id">ID para pesquisa</param>
+            <returns>alunoTurma pesquisado</returns>
+        </member>
+        <member name="M:APIEdux.Repositories.AlunoTurmaRepository.Editar(APIEdux.Domains.AlunoTurma)">
+            <summary>
+            Edita um tipo de alunoTurma
+            </summary>
+            <param name="alunoTurma">alunoTurma a ser editado</param>
+        </member>
+        <member name="M:APIEdux.Repositories.AlunoTurmaRepository.Excluir(System.Int32)">
+            <summary>
+            Exclui um alunoTurma
+            </summary>
+            <param name="id">ID do alunoTurma</param>
+            
+        </member>
+        <member name="M:APIEdux.Repositories.AlunoTurmaRepository.Listar">
+            <summary>
+            Lista todos os alunoTurmas
+            </summary>
+            <returns>Lista dos alunoTurmas</returns>
+            
         </member>
         <member name="M:APIEdux.Repositories.PerfilRepository.Adicionar(APIEdux.Domains.Perfil)">
             <summary>
