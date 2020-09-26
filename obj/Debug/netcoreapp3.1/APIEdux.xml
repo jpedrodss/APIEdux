@@ -21,14 +21,13 @@
             <summary>
             Edita um AlunoTurma
             </summary>
-            <param name="id">ID para pesquisar o perfil</param>
+            <param name="id">ID para pesquisar o AlunoTurma</param>
             <param name="alunoTurma">AlunoTurma para ser editado</param>
             <returns>Resultado da edição</returns>
-            
         </member>
         <member name="M:APIEdux.Controllers.AlunoTurmaController.PostAlunoTurma(APIEdux.Domains.AlunoTurma)">
             <summary>
-            Adiciona um perfil
+            Adiciona um AlunoTurma
             </summary>
             <param name="alunoTurma">AlunoTurma a ser adicionado</param>
             <returns>AlunoTurma adicionado</returns>
@@ -60,6 +59,78 @@
             </summary>
             <param name="login">Objeto para conseguir informações do usuário</param>
             <returns>Status code do login</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.ObjetivoAlunoController.GetObjetivoAluno">
+            <summary>
+            Lista todos os ObjetivoAluno
+            </summary>
+            <returns>Retorna os ObjetivoAluno cadastrados</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.ObjetivoAlunoController.GetObjetivoAluno(System.Int32)">
+            <summary>
+            Procura um ObjetivoAluno especifico por ID
+            </summary>
+            <param name="id"></param>
+            <returns>ObjetivoAluno pesquisado</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.ObjetivoAlunoController.PutObjetivoAluno(System.Int32,APIEdux.Domains.ObjetivoAluno)">
+            <summary>
+            Edita um ObjetivoAluno
+            </summary>
+            <param name="id">ID do ObjetivoAluno</param>
+            <param name="objetivoAluno">AlunoTurma para ser editado</param>
+            <returns></returns>
+        </member>
+        <member name="M:APIEdux.Controllers.ObjetivoAlunoController.PostObjetivoAluno(APIEdux.Domains.ObjetivoAluno)">
+            <summary>
+            Adiciona um ObjetivoAluno
+            </summary>
+            <param name="objetivoAluno">ObjetivoAluno a ser adicionado</param>
+            <returns>ObjetivoAluno adicionado</returns>
+            
+        </member>
+        <member name="M:APIEdux.Controllers.ObjetivoAlunoController.DeleteObjetivoAluno(System.Int32)">
+            <summary>
+            Exclui um ObjetivoAluno
+            </summary>
+            <param name="id">ID do ObjetivoAluno para ser excluido</param>
+            <returns>Status code da ação</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.ObjetivoController.GetObjetivo">
+            <summary>
+            Lista todos os Objetivos
+            </summary>
+            <returns>Retorna os Objetivos cadastrados</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.ObjetivoController.GetObjetivo(System.Int32)">
+            <summary>
+            Procura um Objetivo especifico por ID
+            </summary>
+            <param name="id"></param>
+            <returns>Objetivo pesquisado</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.ObjetivoController.PutObjetivo(System.Int32,APIEdux.Domains.Objetivo)">
+            <summary>
+            Edita um Objetivo
+            </summary>
+            <param name="id">ID do Objetivo</param>
+            <param name="objetivo">Objetivo para ser editado</param>
+            <returns></returns>
+        </member>
+        <member name="M:APIEdux.Controllers.ObjetivoController.PostObjetivo(APIEdux.Domains.Objetivo)">
+            <summary>
+            Adiciona um Objetivo
+            </summary>
+            <param name="objetivo">Objetivo a ser adicionado</param>
+            <returns>Objetivo adicionado</returns>
+            
+        </member>
+        <member name="M:APIEdux.Controllers.ObjetivoController.DeleteObjetivo(System.Int32)">
+            <summary>
+            Exclui um Objetivo
+            </summary>
+            <param name="id">ID do Objetivo para ser excluido</param>
+            <returns>Status code da ação</returns>
         </member>
         <member name="M:APIEdux.Controllers.PerfilController.GetPerfil">
             <summary>
@@ -198,6 +269,68 @@
             </summary>
             <returns>Lista dos alunoTurmas</returns>
             
+        </member>
+        <member name="M:APIEdux.Repositories.ObjetivoAlunoRepository.Adicionar(APIEdux.Domains.ObjetivoAluno)">
+            <summary>
+            Adiciona um tipo de ObjetivoAluno
+            </summary>
+            <param name="objetivoAluno">ObjetivoAluno para ser adicionado</param>
+        </member>
+        <member name="M:APIEdux.Repositories.ObjetivoAlunoRepository.BuscarID(System.Int32)">
+            <summary>
+            Busca um tipo de ObjetivoAluno por ID
+            </summary>
+            <param name="id">ID para pesquisa</param>
+            <returns>ObjetivoAluno pesquisado</returns>
+        </member>
+        <member name="M:APIEdux.Repositories.ObjetivoAlunoRepository.Editar(APIEdux.Domains.ObjetivoAluno)">
+            <summary>
+            Edita um ObjetivoAluno
+            </summary>
+            <param name="objetivoAluno">ObjetivoAluno a ser editado</param>
+        </member>
+        <member name="M:APIEdux.Repositories.ObjetivoAlunoRepository.Excluir(System.Int32)">
+            <summary>
+            Exclui um ObjetivoAluno
+            </summary>
+            <param name="id">ID do ObjetivoAluno</param>
+        </member>
+        <member name="M:APIEdux.Repositories.ObjetivoAlunoRepository.Listar">
+            <summary>
+            Lista dos objetivoAlunos
+            </summary>
+            <returns>Lista dos ObjetivoAlunos </returns>
+        </member>
+        <member name="M:APIEdux.Repositories.ObjetivoRepository.Adicionar(APIEdux.Domains.Objetivo)">
+            <summary>
+            Adiciona um tipo de Objetivo
+            </summary>
+            <param name="objetivo">Objetivo para ser adicionado</param>
+        </member>
+        <member name="M:APIEdux.Repositories.ObjetivoRepository.BuscarID(System.Int32)">
+            <summary>
+            Busca um tipo de Objetivo por ID
+            </summary>
+            <param name="id">ID para pesquisa</param>
+            <returns>Objetivo pesquisado</returns>
+        </member>
+        <member name="M:APIEdux.Repositories.ObjetivoRepository.Editar(APIEdux.Domains.Objetivo)">
+            <summary>
+            Edita um Objetivo
+            </summary>
+            <param name="objetivo">Objetivo a ser editado</param>
+        </member>
+        <member name="M:APIEdux.Repositories.ObjetivoRepository.Excluir(System.Int32)">
+            <summary>
+            Exclui um Objetivo
+            </summary>
+            <param name="id">ID do Objetivo</param>
+        </member>
+        <member name="M:APIEdux.Repositories.ObjetivoRepository.Listar">
+            <summary>
+            Lista dos objetivos
+            </summary>
+            <returns>Lista dos Objetivos </returns>
         </member>
         <member name="M:APIEdux.Repositories.PerfilRepository.Adicionar(APIEdux.Domains.Perfil)">
             <summary>
