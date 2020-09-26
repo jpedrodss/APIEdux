@@ -11,5 +11,6 @@ namespace APIEdux.Domains
 
         public virtual Dica IdDicaNavigation { get; set; }
         public virtual Usuario IdUsuarioNavigation { get; set; }
+        public object Permissao { get; internal set; }
     }
 }
