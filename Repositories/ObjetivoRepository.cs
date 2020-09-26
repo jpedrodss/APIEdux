@@ -56,6 +56,9 @@ namespace APIEdux.Repositories
                     if (objetivoTemp == null)
                         throw new Exception("Objetivo não encontrado.");
 
+                    objetivoTemp.Descricao   = objetivo.Descricao;
+                    objetivoTemp.IdCategoria = objetivo.IdCategoria; 
+
                     _ctx.Objetivo.Update(objetivoTemp);
                     _ctx.SaveChanges();
                 }
