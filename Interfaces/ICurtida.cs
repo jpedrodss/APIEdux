@@ -10,7 +10,6 @@ namespace APIEdux.Interfaces
     {
         void Adicionar(Curtida curtida);
         void Excluir(int id);
-        void Editar(Curtida curtida);
         List<Curtida> Listar();
         Curtida BuscarID(int id);
     }

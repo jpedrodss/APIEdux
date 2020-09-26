@@ -11,6 +11,12 @@ namespace APIEdux.Repositories
     public class CurtidaRepository : ICurtida
     {
         private readonly EduxContext _ctx;
+
+        public CurtidaRepository()
+        {
+            _ctx = new EduxContext();
+        }
+
         public void Adicionar(Curtida curtida)
         {
             {
@@ -40,26 +46,6 @@ namespace APIEdux.Repositories
             }
         }
 
-        public void Editar(Curtida curtida)
-        {
-            try
-            {
-                Curtida curtidaTemp = BuscarID(curtida.IdCurtida);
-
-                if (curtidaTemp == null)
-                    throw new Exception("Tipo de Curtida não encontrada.");
-
-                curtidaTemp.Permissao = curtida.Permissao;
-                _ctx.Curtida.Update(curtidaTemp);
-
-                _ctx.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new Exception(ex.Message); ;
-            }
-        }
-
         public void Excluir(int id)
         {
             try
@@ -67,7 +53,7 @@ namespace APIEdux.Repositories
                 Curtida curtida = BuscarID(id);
 
                 if (curtida == null)
-                    throw new Exception("Tipo de Curtida não encontrada.");
+                    throw new Exception("ID Curtida não encontrada.");
 
                 _ctx.Curtida.Remove(curtida);
 
