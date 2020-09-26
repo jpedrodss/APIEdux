@@ -49,10 +49,10 @@ namespace APIEdux.Controllers
         /// <summary>
         /// Edita um AlunoTurma
         /// </summary>
-        /// <param name="id">ID para pesquisar o perfil</param>
+        /// <param name="id">ID para pesquisar o AlunoTurma</param>
         /// <param name="alunoTurma">AlunoTurma para ser editado</param>
         /// <returns>Resultado da edição</returns>
-        /// 
+      
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAlunoTurma(int id, AlunoTurma alunoTurma)
         {
@@ -82,7 +82,7 @@ namespace APIEdux.Controllers
         }
 
         /// <summary>
-        /// Adiciona um perfil
+        /// Adiciona um AlunoTurma
         /// </summary>
         /// <param name="alunoTurma">AlunoTurma a ser adicionado</param>
         /// <returns>AlunoTurma adicionado</returns>
