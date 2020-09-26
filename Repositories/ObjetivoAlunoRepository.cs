@@ -56,6 +56,10 @@ namespace APIEdux.Repositories
                     if (objetivoAlunoTemp == null)
                         throw new Exception("ObjetivoAluno não encontrado.");
 
+                    objetivoAlunoTemp.DataAlcancado = objetivoAluno.DataAlcancado;
+                    objetivoAlunoTemp.Nota = objetivoAluno.Nota;
+                    objetivoAlunoTemp.IdAlunoTurma = objetivoAluno.IdAlunoTurma;
+
                     _ctx.ObjetivoAluno.Update(objetivoAlunoTemp);
                     _ctx.SaveChanges();
                 }

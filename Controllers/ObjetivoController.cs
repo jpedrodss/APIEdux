@@ -13,8 +13,6 @@ namespace APIEdux.Controllers
     [Authorize(Roles = "Professor")]
     [Route("api/[controller]")]
     [ApiController]
-
-
     public class ObjetivoController : ControllerBase
     {
         private EduxContext _context = new EduxContext();

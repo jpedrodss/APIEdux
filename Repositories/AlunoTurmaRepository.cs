@@ -63,6 +63,9 @@ namespace APIEdux.Repositories
                     if (alunoTurmaTemp == null)
                         throw new Exception("Aluno não encontrado.");
 
+                    alunoTurmaTemp.IdUsuario = alunoTurma.IdUsuario;
+                    alunoTurmaTemp.IdTurma = alunoTurma.IdTurma;
+
                     _ctx.AlunoTurma.Update(alunoTurmaTemp);
                     _ctx.SaveChanges();
                 }
