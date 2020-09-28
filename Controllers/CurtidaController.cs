@@ -14,12 +14,7 @@ namespace APIEdux.Controllers
     [ApiController]
     public class CurtidaController : ControllerBase
     {
-        private readonly EduxContext _context;
-
-        public CurtidaController(EduxContext context)
-        {
-            _context = context;
-        }
+        private EduxContext _context = new EduxContext();
 
         // GET: api/Curtida
         [HttpGet]
