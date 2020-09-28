@@ -7,6 +7,8 @@ namespace APIEdux.Contexts
 {
     public partial class EduxContext : DbContext
     {
+        internal object professorTurma;
+
         public EduxContext()
         {
         }
