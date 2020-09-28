@@ -8975,16 +8975,11 @@
     ]
   },
   "packageFolders": {
-<<<<<<< HEAD
     "C:\\Users\\000\\.nuget\\packages\\": {}
-=======
-    "C:\\Users\\GamerPro\\.nuget\\packages\\": {}
->>>>>>> master
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
       "projectUniqueName": "C:\\Users\\000\\Documents\\GitHub\\APIEdux\\APIEdux.csproj",
       "projectName": "APIEdux",
       "projectPath": "C:\\Users\\000\\Documents\\GitHub\\APIEdux\\APIEdux.csproj",
@@ -8993,16 +8988,6 @@
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\000\\AppData\\Roaming\\NuGet\\NuGet.Config",
-=======
-      "projectUniqueName": "C:\\Users\\GamerPro\\Documents\\GitHub\\APIEdux\\APIEdux.csproj",
-      "projectName": "APIEdux",
-      "projectPath": "C:\\Users\\GamerPro\\Documents\\GitHub\\APIEdux\\APIEdux.csproj",
-      "packagesPath": "C:\\Users\\GamerPro\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\GamerPro\\Documents\\GitHub\\APIEdux\\obj\\",
-      "projectStyle": "PackageReference",
-      "configFilePaths": [
-        "C:\\Users\\GamerPro\\AppData\\Roaming\\NuGet\\NuGet.Config",
->>>>>>> master
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -9092,5 +9077,13 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.302\\RuntimeIdentifierGraph.json"
       }
     }
-  }
+  },
+  "logs": [
+    {
+      "code": "Undefined",
+      "level": "Warning",
+      "warningLevel": 1,
+      "message": "Problema ao ler o arquivo de cache C:\\Users\\000\\Documents\\GitHub\\APIEdux\\obj\\project.nuget.cache: Invalid property identifier character: <. Path 'version', line 3, position 0."
+    }
+  ]
 }
