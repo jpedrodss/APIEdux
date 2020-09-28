@@ -1,6 +1,7 @@
 {
   "format": 1,
   "restore": {
+<<<<<<< HEAD
     "C:\\Users\\000\\Documents\\GitHub\\APIEdux\\APIEdux.csproj": {}
   },
   "projects": {
@@ -15,6 +16,22 @@
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\000\\AppData\\Roaming\\NuGet\\NuGet.Config",
+=======
+    "C:\\Users\\GamerPro\\Documents\\GitHub\\APIEdux\\APIEdux.csproj": {}
+  },
+  "projects": {
+    "C:\\Users\\GamerPro\\Documents\\GitHub\\APIEdux\\APIEdux.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "C:\\Users\\GamerPro\\Documents\\GitHub\\APIEdux\\APIEdux.csproj",
+        "projectName": "APIEdux",
+        "projectPath": "C:\\Users\\GamerPro\\Documents\\GitHub\\APIEdux\\APIEdux.csproj",
+        "packagesPath": "C:\\Users\\GamerPro\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\GamerPro\\Documents\\GitHub\\APIEdux\\obj\\",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "C:\\Users\\GamerPro\\AppData\\Roaming\\NuGet\\NuGet.Config",
+>>>>>>> master
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
