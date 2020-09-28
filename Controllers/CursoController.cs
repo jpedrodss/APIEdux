@@ -14,12 +14,7 @@ namespace APIEdux.Controllers
     [ApiController]
     public class CursoController : ControllerBase
     {
-        private readonly EduxContext _context;
-
-        public CursoController(EduxContext context)
-        {
-            _context = context;
-        }
+        private EduxContext _context = new EduxContext();
 
         /// <summary>
         /// Lista todos itens do Objeto Curso

@@ -14,12 +14,7 @@ namespace APIEdux.Controllers
     [ApiController]
     public class DicasController : ControllerBase
     {
-        private readonly EduxContext _context;
-
-        public DicasController(EduxContext context)
-        {
-            _context = context;
-        }
+        private EduxContext _context = new EduxContext();
 
         // GET: api/Dicas
         [HttpGet]

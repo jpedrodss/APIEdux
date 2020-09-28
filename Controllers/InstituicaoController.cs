@@ -14,12 +14,7 @@ namespace APIEdux.Controllers
     [ApiController]
     public class InstituicaoController : ControllerBase
     {
-        private readonly EduxContext _context;
-
-        public InstituicaoController(EduxContext context)
-        {
-            _context = context;
-        }
+        private EduxContext _context = new EduxContext();
 
         /// <summary>
         /// Lista intens do Objeto Instituição 
