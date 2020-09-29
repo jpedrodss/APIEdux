@@ -21,14 +21,21 @@ namespace APIEdux.Controllers
             _context = context;
         }
 
-        // GET: api/Categorias
+        /// <summary>
+        /// Lista todos itens do Objeto Categoria
+        /// </summary>
+        /// <returns>Lista Categoria</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Categoria>>> GetCategoria()
         {
             return await _context.Categoria.ToListAsync();
         }
 
-        // GET: api/Categorias/5
+        /// <summary>
+        /// Busca Objeto Categoria por id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Categoria Buscada</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Categoria>> GetCategoria(int id)
         {
@@ -42,9 +49,12 @@ namespace APIEdux.Controllers
             return categoria;
         }
 
-        // PUT: api/Categorias/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Edita Objeto categoria
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="categoria"></param>
+        /// <returns>Itens categoria a serem editados</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutCategoria(int id, Categoria categoria)
         {
@@ -74,9 +84,11 @@ namespace APIEdux.Controllers
             return NoContent();
         }
 
-        // POST: api/Categorias
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Adiciona Objeto Categoria
+        /// </summary>
+        /// <param name="categoria"></param>
+        /// <returns>Objeto categoria a ser adicionado</returns>
         [HttpPost]
         public async Task<ActionResult<Categoria>> PostCategoria(Categoria categoria)
         {
@@ -86,7 +98,11 @@ namespace APIEdux.Controllers
             return CreatedAtAction("GetCategoria", new { id = categoria.IdCategoria }, categoria);
         }
 
-        // DELETE: api/Categorias/5
+        /// <summary>
+        /// Exclui Objeto Categoria
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Objeto categoria a ser Excluido</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<Categoria>> DeleteCategoria(int id)
         {
