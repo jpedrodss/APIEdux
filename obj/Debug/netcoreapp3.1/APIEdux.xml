@@ -339,6 +339,7 @@
             </summary>
             <returns>Lista dos alunoTurmas</returns>
             
+<<<<<<< HEAD
         </member>
         <member name="M:APIEdux.Repositories.CategoriaRepository.Adicionar(APIEdux.Domains.Categoria)">
             <summary>
@@ -432,6 +433,8 @@
             Lista Objeto instituição
             </summary>
             <returns>Lista de instituições</returns>
+=======
+>>>>>>> master
         </member>
         <member name="M:APIEdux.Repositories.ObjetivoAlunoRepository.Adicionar(APIEdux.Domains.ObjetivoAluno)">
             <summary>
