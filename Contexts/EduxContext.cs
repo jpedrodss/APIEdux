@@ -7,6 +7,8 @@ namespace APIEdux.Contexts
 {
     public partial class EduxContext : DbContext
     {
+        internal object professorTurma;
+
         public EduxContext()
         {
         }
@@ -17,6 +19,12 @@ namespace APIEdux.Contexts
         }
 
         public virtual DbSet<AlunoTurma> AlunoTurma { get; set; }
+
+        internal void SaveChanges()
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual DbSet<Categoria> Categoria { get; set; }
         public virtual DbSet<Curso> Curso { get; set; }
         public virtual DbSet<Curtida> Curtida { get; set; }
