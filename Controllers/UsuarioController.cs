@@ -2,13 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using APIEdux.Contexts;
 using APIEdux.Domains;
+using APIEdux.Repositories;
 using Microsoft.AspNetCore.Authorization;
-using APIEdux.Utils;
+using Microsoft.AspNetCore.Mvc;
 
 namespace APIEdux.Controllers
 {
@@ -16,113 +13,136 @@ namespace APIEdux.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private readonly EduxContext _context = new EduxContext();
+        private readonly UsuarioRepository _usuarioRepository;
+
+        public UsuarioController()
+        {
+            _usuarioRepository = new UsuarioRepository();
+        }
 
         /// <summary>
-        /// Lista todos os usuarios.
+        /// Lista os usuarios
         /// </summary>
-        /// <returns>Lista dos usuarios cadastrados</returns>
+        /// <returns>Lista de usuários</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Usuario>>> GetUsuario()
+        [Authorize(Roles = "Professor")]
+        public IActionResult Get()
         {
-            return await _context.Usuario.ToListAsync();
-        }
-
-        /// <summary>
-        /// Procura um Usuario específico por ID
-        /// </summary>
-        /// <param name="id">ID de pesquisa</param>
-        /// <returns>Usuario pesquisado</returns>
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Usuario>> GetUsuario(int id)
-        {
-            var usuario = await _context.Usuario.FindAsync(id);
-
-            if (usuario == null)
-            {
-                return NotFound();
-            }
-
-            return usuario;
-        }
-
-        /// <summary>
-        /// Edita um Usuario
-        /// </summary>
-        /// <param name="id">ID para pesquisar o Usuario</param>
-        /// <param name="usuario">Usuario a ser editado</param>
-        /// <returns>Resultado da edição</returns>
-        [HttpPut("{id}")]
-        public async Task<IActionResult> PutUsuario(int id, Usuario usuario)
-        {
-            if (id != usuario.IdUsuario)
-            {
-                return BadRequest();
-            }
-
-            usuario.Senha = Crypto.Criptografar(usuario.Senha, usuario.Email.Substring(0, 4));
-
-            _context.Entry(usuario).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!UsuarioExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                var usuarios = _usuarioRepository.Listar();
 
-            return NoContent();
+                if (usuarios.Count == 0)
+                    return NoContent();
+
+                return Ok(new
+                {
+                    totalCount = usuarios.Count,
+                    data = usuarios
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    statusCode = 400,
+                    error = "Envie um email para email@email.com informando que ocorreu um erro no endpoint Get/Usuarios"
+                });
+            }
         }
 
         /// <summary>
-        /// Adiciona um Usuario
+        /// Busca usuário por ID
+        /// </summary>
+        /// <param name="id">Id do Usuário</param>
+        /// <returns>Usuário buscado</returns>
+        [HttpGet("{id}")]
+        [Authorize(Roles = "Professor")]
+        public IActionResult Get(int id)
+        {
+            try
+            {
+                Usuario usuario = _usuarioRepository.BuscarID(id);
+
+                if (usuario == null)
+                    return NotFound();
+
+                return Ok(usuario);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Adiciona um usuário a base de dados
         /// </summary>
         /// <param name="usuario">Usuario a ser adicionado</param>
         /// <returns>Usuario adicionado</returns>
         [HttpPost]
-        public async Task<ActionResult<Usuario>> PostUsuario(Usuario usuario)
+        [AllowAnonymous]
+        public IActionResult Post( Usuario usuario)
         {
-            usuario.Senha = Crypto.Criptografar(usuario.Senha, usuario.Email.Substring(0, 4));
+            try
+            {
+                _usuarioRepository.Adicionar(usuario);
 
-            _context.Usuario.Add(usuario);
-
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetUsuario", new { id = usuario.IdUsuario }, usuario);
+                return Ok(usuario);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
-        /// Exclui um Usuario
+        /// Altera um usuário
         /// </summary>
-        /// <param name="id">ID do Usuario para ser excluido</param>
-        /// <returns>Status code da ação</returns>
-        [HttpDelete("{id}")]
-        public async Task<ActionResult<Usuario>> DeleteUsuario(int id)
+        /// <param name="id">ID para buscar usuario</param>
+        /// <param name="usuario">Objeto para pegar informações do usuário</param>
+        /// <returns>Alterações feitas</returns>
+        [HttpPut("{id}")]
+        [Authorize(Roles = "Aluno, Professor")]
+        public IActionResult Put(int id, Usuario usuario)
         {
-            var usuario = await _context.Usuario.FindAsync(id);
-            if (usuario == null)
+            try
             {
-                return NotFound();
+                var usuarioTemp = _usuarioRepository.BuscarID(id);
+
+                if (usuarioTemp == null)
+                    return NotFound();
+
+                usuario.IdUsuario = id;
+                _usuarioRepository.Editar(usuario);
+
+                return Ok(usuario);
             }
-
-            _context.Usuario.Remove(usuario);
-            await _context.SaveChangesAsync();
-
-            return usuario;
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
-        private bool UsuarioExists(int id)
+        /// <summary>
+        /// Exclui um usuário
+        /// </summary>
+        /// <param name="id">ID do usuario para ser exlcuido</param>
+        /// <returns>Status code</returns>
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Professor")]
+        public IActionResult Delete(int id)
         {
-            return _context.Usuario.Any(e => e.IdUsuario == id);
+            try
+            {
+                _usuarioRepository.Excluir(id);
+
+                return Ok(id);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
