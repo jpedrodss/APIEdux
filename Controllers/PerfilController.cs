@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using APIEdux.Contexts;
 using APIEdux.Domains;
 using Microsoft.AspNetCore.Authorization;
+using APIEdux.Repositories;
 
 namespace APIEdux.Controllers
 {
@@ -16,16 +17,41 @@ namespace APIEdux.Controllers
     [ApiController]
     public class PerfilController : ControllerBase
     {
-        private EduxContext _context = new EduxContext();
+        private readonly PerfilRepository _perfilRepository;
+
+        public PerfilController()
+        {
+            _perfilRepository = new PerfilRepository();
+        }
 
         /// <summary>
         /// Lista todos os perfís.
         /// </summary>
         /// <returns>Lista dos perfís cadastrados</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Perfil>>> GetPerfil()
+        public IActionResult Get()
         {
-            return await _context.Perfil.ToListAsync();
+            try
+            {
+                var perfis = _perfilRepository.Listar();
+
+                if (perfis.Count == 0)
+                    return NoContent();
+
+                return Ok(new
+                {
+                    totalCount = perfis.Count,
+                    data = perfis
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    statusCode = 400,
+                    error = "Envie um email para email@email.com informando que ocorreu um erro no endpoint Get/Usuarios"
+                });
+            }
         }
 
         /// <summary>
@@ -34,16 +60,21 @@ namespace APIEdux.Controllers
         /// <param name="id">ID de pesquisa</param>
         /// <returns>Perfil pesquisado</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Perfil>> GetPerfil(int id)
+        public IActionResult Get(int id)
         {
-            var perfil = await _context.Perfil.FindAsync(id);
-
-            if (perfil == null)
+            try
             {
-                return NotFound();
-            }
+                Perfil perfil = _perfilRepository.BuscarID(id);
 
-            return perfil;
+                if (perfil == null)
+                    return NotFound();
+
+                return Ok(perfil);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -53,32 +84,24 @@ namespace APIEdux.Controllers
         /// <param name="perfil">Perfil a ser editado</param>
         /// <returns>Resultado da edição</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutPerfil(int id, Perfil perfil)
+        public IActionResult Put(int id, Perfil perfil)
         {
-            if (id != perfil.IdPerfil)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(perfil).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!PerfilExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                var perfilTemp = _perfilRepository.BuscarID(id);
 
-            return NoContent();
+                if (perfilTemp == null)
+                    return NotFound();
+
+                perfil.IdPerfil = id;
+                _perfilRepository.Editar(perfil);
+
+                return Ok(perfil);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -87,12 +110,18 @@ namespace APIEdux.Controllers
         /// <param name="perfil">Perfil a ser adicionado</param>
         /// <returns>Perfil adicionado</returns>
         [HttpPost]
-        public async Task<ActionResult<Perfil>> PostPerfil(Perfil perfil)
+        public IActionResult Post(Perfil perfil)
         {
-            _context.Perfil.Add(perfil);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _perfilRepository.Adicionar(perfil);
 
-            return CreatedAtAction("GetPerfil", new { id = perfil.IdPerfil }, perfil);
+                return Ok(perfil);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -101,23 +130,18 @@ namespace APIEdux.Controllers
         /// <param name="id">ID do perfil para ser excluido</param>
         /// <returns>Status code da ação</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Perfil>> DeletePerfil(int id)
+        public IActionResult Delete(int id)
         {
-            var perfil = await _context.Perfil.FindAsync(id);
-            if (perfil == null)
+            try
             {
-                return NotFound();
+                _perfilRepository.Excluir(id);
+
+                return Ok(id);
             }
-
-            _context.Perfil.Remove(perfil);
-            await _context.SaveChangesAsync();
-
-            return perfil;
-        }
-
-        private bool PerfilExists(int id)
-        {
-            return _context.Perfil.Any(e => e.IdPerfil == id);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
