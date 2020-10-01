@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APIEdux.Contexts;
 using APIEdux.Domains;
+using APIEdux.Repositories;
 
 namespace APIEdux.Controllers
 {
@@ -14,21 +15,40 @@ namespace APIEdux.Controllers
     [ApiController]
     public class CategoriasController : ControllerBase
     {
-        private readonly EduxContext _context;
+        private readonly CategoriaRepository _categoriaRepository;
 
-        public CategoriasController(EduxContext context)
+        public CategoriasController()
         {
-            _context = context;
+            _categoriaRepository = new CategoriaRepository();
         }
+
+
 
         /// <summary>
         /// Lista todos itens do Objeto Categoria
         /// </summary>
         /// <returns>Lista Categoria</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Categoria>>> GetCategoria()
+        public IActionResult Get()
         {
-            return await _context.Categoria.ToListAsync();
+            try
+            {
+                var categorias = _categoriaRepository.Listar();
+
+                if (categorias.Count == 0)
+                    return NoContent();
+
+                return Ok(new
+                {
+                    totalCount = categorias.Count,
+                    data = categorias
+                });
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -37,16 +57,22 @@ namespace APIEdux.Controllers
         /// <param name="id"></param>
         /// <returns>Categoria Buscada</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Categoria>> GetCategoria(int id)
+        public IActionResult Get(int id)
         {
-            var categoria = await _context.Categoria.FindAsync(id);
-
-            if (categoria == null)
+            try
             {
-                return NotFound();
-            }
+                Categoria categoria = _categoriaRepository.BuscarID(id);
 
-            return categoria;
+                if (categoria == null)
+                    return NotFound();
+
+                return Ok(categoria);
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
 
         /// <summary>
@@ -56,33 +82,26 @@ namespace APIEdux.Controllers
         /// <param name="categoria"></param>
         /// <returns>Itens categoria a serem editados</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCategoria(int id, Categoria categoria)
+        public IActionResult Put(int id, Categoria categoria)
         {
-            if (id != categoria.IdCategoria)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(categoria).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CategoriaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                var categoriaTemp = _categoriaRepository.BuscarID(id);
 
-            return NoContent();
+                if (categoriaTemp == null)
+                    return NotFound();
+
+                categoria.IdCategoria = id;
+                _categoriaRepository.Editar(categoria);
+
+                return Ok(categoria);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
+
 
         /// <summary>
         /// Adiciona Objeto Categoria
@@ -90,12 +109,18 @@ namespace APIEdux.Controllers
         /// <param name="categoria"></param>
         /// <returns>Objeto categoria a ser adicionado</returns>
         [HttpPost]
-        public async Task<ActionResult<Categoria>> PostCategoria(Categoria categoria)
+        public IActionResult Post(Categoria categoria)
         {
-            _context.Categoria.Add(categoria);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _categoriaRepository.Adicionar(categoria);
 
-            return CreatedAtAction("GetCategoria", new { id = categoria.IdCategoria }, categoria);
+                return Ok(categoria);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -104,23 +129,18 @@ namespace APIEdux.Controllers
         /// <param name="id"></param>
         /// <returns>Objeto categoria a ser Excluido</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Categoria>> DeleteCategoria(int id)
+        public IActionResult Delete(int id)
         {
-            var categoria = await _context.Categoria.FindAsync(id);
-            if (categoria == null)
+            try
             {
-                return NotFound();
+                _categoriaRepository.Excluir(id);
+
+                return Ok(id);
             }
-
-            _context.Categoria.Remove(categoria);
-            await _context.SaveChangesAsync();
-
-            return categoria;
-        }
-
-        private bool CategoriaExists(int id)
-        {
-            return _context.Categoria.Any(e => e.IdCategoria == id);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
