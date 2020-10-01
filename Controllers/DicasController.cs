@@ -16,14 +16,21 @@ namespace APIEdux.Controllers
     {
         private EduxContext _context = new EduxContext();
 
-        // GET: api/Dicas
+        /// <summary>
+        /// Lista todos itens do Objeto Dicas
+        /// </summary>
+        /// <returns>Dica Categoria</returns>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<Dica>>> GetDica()
         {
             return await _context.Dica.ToListAsync();
         }
 
-        // GET: api/Dicas/5
+        /// <summary>
+        /// Busca Objeto Dica por id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Dica Buscada</returns>
         [HttpGet("{id}")]
         public async Task<ActionResult<Dica>> GetDica(int id)
         {
@@ -37,9 +44,12 @@ namespace APIEdux.Controllers
             return dica;
         }
 
-        // PUT: api/Dicas/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Edita Objeto dica
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="dica"></param>
+        /// <returns>Itens dica a serem editados</returns>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutDica(int id, Dica dica)
         {
@@ -69,9 +79,11 @@ namespace APIEdux.Controllers
             return NoContent();
         }
 
-        // POST: api/Dicas
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Adiciona Objeto Dica
+        /// </summary>
+        /// <param name="dica"></param>
+        /// <returns>Objeto dica a ser adicionado</returns>
         [HttpPost]
         public async Task<ActionResult<Dica>> PostDica(Dica dica)
         {
@@ -80,8 +92,11 @@ namespace APIEdux.Controllers
 
             return CreatedAtAction("GetDica", new { id = dica.IdDica }, dica);
         }
-
-        // DELETE: api/Dicas/5
+        /// <summary>
+        /// Exclui Objeto Dica
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Objeto dica a ser Excluido</returns>
         [HttpDelete("{id}")]
         public async Task<ActionResult<Dica>> DeleteDica(int id)
         {
