@@ -1,12 +1,14 @@
-﻿using APIEdux.Contexts;
-using APIEdux.Domains;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using APIEdux.Contexts;
+using APIEdux.Domains;
+using Microsoft.AspNetCore.Authorization;
+using APIEdux.Repositories;
 
 namespace APIEdux.Controllers
 {
@@ -16,16 +18,43 @@ namespace APIEdux.Controllers
 
     public class AlunoTurmaController : ControllerBase
     {
-        private EduxContext _context = new EduxContext();
+        private readonly AlunoTurmaRepository _alunoTurmaRepository;
+
+        public AlunoTurmaController()
+        {
+            _alunoTurmaRepository = new AlunoTurmaRepository();
+        }
+
+
 
         /// <summary>
         /// Lista todos os AlunoTurma
         /// </summary>
         /// <returns> retorna todos os AlunoTurma cadastrados </returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AlunoTurma>>> GetAlunoTurma()
+        public IActionResult Get()
         {
-            return await _context.AlunoTurma.ToListAsync();
+            try
+            {
+                var alunoTurmas = _alunoTurmaRepository.Listar();
+
+                if (alunoTurmas.Count == 0)
+                    return NoContent();
+
+                return Ok(new
+                {
+                    totalCount = alunoTurmas.Count,
+                    data = alunoTurmas
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    statusCode = 400,
+                    error = "Envie um email para email@email.com informando que ocorreu um erro no endpoit Get/AlunoTurma "
+                });
+            }
         }
         
         /// <summary>
@@ -34,16 +63,21 @@ namespace APIEdux.Controllers
         /// <param name="id"> id de pesquisa </param>
         /// <returns> AlunoTurma pesquisado </returns>
         [HttpGet("{id}")]
-          public async Task<ActionResult<AlunoTurma>> GetAlunoTurma(int id)
+          public IActionResult Get(int id)
         {
-            var AlunoTurma = await _context.AlunoTurma.FindAsync(id);
-
-            if (AlunoTurma == null)
+            try
             {
-                return NotFound();
-            }
+                AlunoTurma alunoTurma = _alunoTurmaRepository.BuscarID(id);
 
-            return AlunoTurma;
+                if (alunoTurma == null)
+                    return NotFound();
+
+                return Ok(alunoTurma);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -54,31 +88,24 @@ namespace APIEdux.Controllers
         /// <returns>Resultado da edição</returns>
       
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutAlunoTurma(int id, AlunoTurma alunoTurma)
+        public IActionResult Put(int id, AlunoTurma alunoTurma)
         {
-            if (id != alunoTurma.IdAlunoTurma)
+           try
             {
-                return BadRequest();
-            }
+                var alunoTurmaTemp = _alunoTurmaRepository.BuscarID(id);
 
-            _context.Entry(alunoTurma).State = EntityState.Modified;
-
-            try
-            {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!AlunoTurmaExists(id))
-                {
+                if (alunoTurmaTemp == null)
                     return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+
+                alunoTurma.IdAlunoTurma = id;
+                _alunoTurmaRepository.Editar(alunoTurma);
+
+                return Ok(alunoTurma);
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -87,12 +114,18 @@ namespace APIEdux.Controllers
         /// <param name="alunoTurma">AlunoTurma a ser adicionado</param>
         /// <returns>AlunoTurma adicionado</returns>
         [HttpPost]
-        public async Task<ActionResult<Perfil>> PostAlunoTurma(AlunoTurma alunoTurma)
+        public IActionResult Post (AlunoTurma alunoTurma)
         {
-            _context.AlunoTurma.Add(alunoTurma);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _alunoTurmaRepository.Adicionar(alunoTurma);
 
-            return CreatedAtAction("GetAlunoTurma", new { id = alunoTurma.IdAlunoTurma }, alunoTurma);
+                return Ok(alunoTurma);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         /// <summary>
         /// Exclui um AlunoTurma
@@ -100,24 +133,18 @@ namespace APIEdux.Controllers
         /// <param name="id">ID do AlunoTurma para ser excluido</param>
         /// <returns>Status code da ação</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<AlunoTurma>> DeleteAlunoTurma(int id)
+       public IActionResult Delete(int id)
         {
-            var alunoTurma = await _context.AlunoTurma.FindAsync(id);
-            if (alunoTurma == null)
+            try
             {
-                return NotFound();
+                _alunoTurmaRepository.Excluir(id);
+
+                return Ok(id);
             }
-
-            _context.AlunoTurma.Remove(alunoTurma);
-            await _context.SaveChangesAsync();
-
-            return alunoTurma;
-        }
-
-
-        private bool AlunoTurmaExists(int id)
-        {
-            return _context.AlunoTurma.Any(e => e.IdAlunoTurma == id);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
