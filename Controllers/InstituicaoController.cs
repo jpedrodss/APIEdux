@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APIEdux.Contexts;
 using APIEdux.Domains;
+using APIEdux.Repositories;
 
 namespace APIEdux.Controllers
 {
@@ -14,16 +15,38 @@ namespace APIEdux.Controllers
     [ApiController]
     public class InstituicaoController : ControllerBase
     {
-        private EduxContext _context = new EduxContext();
+        private readonly InstituicaoRepository _instituicaoRepository;
+
+        public InstituicaoController()
+        {
+            _instituicaoRepository = new InstituicaoRepository();
+        }
 
         /// <summary>
         /// Lista intens do Objeto Instituição 
         /// </summary>
         /// <returns>Lista Instituições</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Instituicao>>> GetInstituicao()
+        public IActionResult Get()
         {
-            return await _context.Instituicao.ToListAsync();
+            try
+            {
+                var Instituicoes = _instituicaoRepository.Listar();
+
+                if (Instituicoes.Count == 0)
+                    return NoContent();
+
+                return Ok(new
+                {
+                    totalCount = Instituicoes.Count,
+                    data = Instituicoes
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+
+            }
         }
 
         /// <summary>
@@ -32,16 +55,21 @@ namespace APIEdux.Controllers
         /// <param name="id"></param>
         /// <returns>Instituição</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Instituicao>> GetInstituicao(int id)
+        public IActionResult Get(int id)
         {
-            var instituicao = await _context.Instituicao.FindAsync(id);
-
-            if (instituicao == null)
+            try
             {
-                return NotFound();
-            }
+                Instituicao instituicao = _instituicaoRepository.BuscarID(id);
 
-            return instituicao;
+                if (instituicao == null)
+                    return NotFound();
+
+                return Ok(instituicao);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -51,32 +79,24 @@ namespace APIEdux.Controllers
         /// <param name="instituicao"></param>
         /// <returns>Edição Instituição</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutInstituicao(int id, Instituicao instituicao)
+        public IActionResult Put(int id, Instituicao instituicao)
         {
-            if (id != instituicao.IdInstituicao)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(instituicao).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!InstituicaoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                var instituicao1 = _instituicaoRepository.BuscarID(id);
 
-            return NoContent();
+                if (instituicao1 == null)
+                    return NotFound();
+
+                instituicao.IdInstituicao = id;
+                _instituicaoRepository.Editar(instituicao);
+
+                return Ok(instituicao);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -85,12 +105,18 @@ namespace APIEdux.Controllers
         /// <param name="instituicao"></param>
         /// <returns>Adicionarintens no objeto instituição</returns>
         [HttpPost]
-        public async Task<ActionResult<Instituicao>> PostInstituicao(Instituicao instituicao)
+        public IActionResult Post(Instituicao instituicao)
         {
-            _context.Instituicao.Add(instituicao);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _instituicaoRepository.Adicionar(instituicao);
 
-            return CreatedAtAction("GetInstituicao", new { id = instituicao.IdInstituicao }, instituicao);
+                return Ok(instituicao);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -99,23 +125,18 @@ namespace APIEdux.Controllers
         /// <param name="id"></param>
         /// <returns>Remove Objeto Curso</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Instituicao>> DeleteInstituicao(int id)
+        public IActionResult Delete(int id)
         {
-            var instituicao = await _context.Instituicao.FindAsync(id);
-            if (instituicao == null)
+            try
             {
-                return NotFound();
+                _instituicaoRepository.Excluir(id);
+
+                return Ok(id);
             }
-
-            _context.Instituicao.Remove(instituicao);
-            await _context.SaveChangesAsync();
-
-            return instituicao;
-        }
-
-        private bool InstituicaoExists(int id)
-        {
-            return _context.Instituicao.Any(e => e.IdInstituicao == id);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
