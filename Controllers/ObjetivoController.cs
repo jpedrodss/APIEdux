@@ -1,5 +1,6 @@
 ﻿using APIEdux.Contexts;
 using APIEdux.Domains;
+using APIEdux.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -15,7 +16,8 @@ namespace APIEdux.Controllers
     [ApiController]
     public class ObjetivoController : ControllerBase
     {
-        private EduxContext _context = new EduxContext();
+        private readonly ObjetivoRepository _objetivoRepository;
+
 
         /// <summary>
         /// Lista todos os Objetivos
@@ -23,9 +25,29 @@ namespace APIEdux.Controllers
         /// <returns>Retorna os Objetivos cadastrados</returns>
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Objetivo>>> GetObjetivo()
+        public IActionResult Get()
         {
-            return await _context.Objetivo.ToListAsync();
+            try
+            {
+                var objetivos = _objetivoRepository.Listar();
+
+                if (objetivos.Count == 0)
+                    return NoContent();
+
+                return Ok(new
+                {
+                    totalCount = objetivos.Count,
+                    data = objetivos
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    statusCode = 400,
+                    error = "Envie um email para email@email.com informando que ocorreu um erro no endpoint Get/Usuarios"
+                });
+            }
         }
 
         /// <summary>
@@ -35,18 +57,22 @@ namespace APIEdux.Controllers
         /// <returns>Objetivo pesquisado</returns>
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Objetivo>> GetObjetivo(int id)
+        public IActionResult Get(int id)
         {
-            var Objetivo = await _context.Objetivo.FindAsync(id);
-
-            if (Objetivo == null)
+            try
             {
-                return NotFound();
+               Objetivo objetivo = _objetivoRepository.BuscarID(id);
+
+                if (objetivo == null)
+                    return NotFound();
+
+                return Ok(objetivo);
             }
-
-            return Objetivo;
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-
         /// <summary>
         /// Edita um Objetivo
         /// </summary>
@@ -55,31 +81,24 @@ namespace APIEdux.Controllers
         /// <returns></returns>
 
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutObjetivo(int id, Objetivo objetivo)
+        public IActionResult Put(int id, Objetivo objetivo)
         {
-            if (id != objetivo.IdObjetivo)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(objetivo).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ObjetivoExists(id))
-                {
+                var objetivoTemp = _objetivoRepository.BuscarID(id);
+
+                if (objetivoTemp == null)
                     return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+
+                objetivo.IdObjetivo = id;
+                _objetivoRepository.Editar(objetivo);
+
+                return Ok(objetivo);
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -89,12 +108,18 @@ namespace APIEdux.Controllers
         /// <returns>Objetivo adicionado</returns>
         /// 
         [HttpPost]
-        public async Task<ActionResult<Perfil>> PostObjetivo(Objetivo objetivo)
+        public IActionResult Post(Objetivo objetivo)
         {
-            _context.Objetivo.Add(objetivo);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _objetivoRepository.Adicionar(objetivo);
 
-            return CreatedAtAction("GetObjetivo", new { id = objetivo.IdObjetivo}, objetivo);
+                return Ok(objetivo);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -104,24 +129,18 @@ namespace APIEdux.Controllers
         /// <returns>Status code da ação</returns>
 
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Objetivo>> DeleteObjetivo(int id)
+        public IActionResult Delete(int id)
         {
-            var objetivo = await _context.Objetivo.FindAsync(id);
-            if (objetivo == null)
+            try
             {
-                return NotFound();
+                _objetivoRepository.Excluir(id);
+
+                return Ok(id);
             }
-
-            _context.Objetivo.Remove(objetivo);
-            await _context.SaveChangesAsync();
-
-            return objetivo;
-        }
-
-
-        private bool ObjetivoExists(int id)
-        {
-            return _context.Objetivo.Any(e => e.IdObjetivo == id);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

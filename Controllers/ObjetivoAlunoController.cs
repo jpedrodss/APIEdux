@@ -1,5 +1,6 @@
 ﻿using APIEdux.Contexts;
 using APIEdux.Domains;
+using APIEdux.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -17,17 +18,41 @@ namespace APIEdux.Controllers
 
     public class ObjetivoAlunoController : ControllerBase
     {
-        private EduxContext _context = new EduxContext();
+        private readonly ObjetivoAlunoRepository _objetivoAlunoRepository;
+        public ObjetivoAlunoController()
+        {
+            _objetivoAlunoRepository = new ObjetivoAlunoRepository();
+        }
 
         /// <summary>
         /// Lista todos os ObjetivoAluno
         /// </summary>
         /// <returns>Retorna os ObjetivoAluno cadastrados</returns>
-       
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ObjetivoAluno>>> GetObjetivoAluno()
+        public IActionResult Get()
         {
-            return await _context.ObjetivoAluno.ToListAsync();
+            try
+            {
+                var objetivoAlunos = _objetivoAlunoRepository.Listar();
+
+                if (objetivoAlunos.Count == 0)
+                    return NoContent();
+
+                return Ok(new
+                {
+                    totalCount = objetivoAlunos.Count,
+                    data = objetivoAlunos
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    statusCode = 400,
+                    error = "Envie um email para email@email.com informando que ocorreu um erro no endpoint Get/Usuarios"
+                });
+            }
         }
 
         /// <summary>
@@ -35,19 +60,25 @@ namespace APIEdux.Controllers
         /// </summary>
         /// <param name="id"></param>
         /// <returns>ObjetivoAluno pesquisado</returns>
-        
+
         [HttpGet("{id}")]
-        public async Task<ActionResult<ObjetivoAluno>> GetObjetivoAluno(int id)
+        public IActionResult Get(int id)
         {
-            var ObjetivoAluno = await _context.ObjetivoAluno.FindAsync(id);
-
-            if (ObjetivoAluno == null)
+            try
             {
-                return NotFound();
-            }
+                ObjetivoAluno objetivoAluno = _objetivoAlunoRepository.BuscarID(id);
 
-            return ObjetivoAluno;
+                if (objetivoAluno == null)
+                    return NotFound();
+
+                return Ok(objetivoAluno);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
+
 
         /// <summary>
         /// Edita um ObjetivoAluno
@@ -55,33 +86,23 @@ namespace APIEdux.Controllers
         /// <param name="id">ID do ObjetivoAluno</param>
         /// <param name="objetivoAluno">AlunoTurma para ser editado</param>
         /// <returns></returns>
-       
+
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutObjetivoAluno(int id, ObjetivoAluno objetivoAluno)
+        public IActionResult Get(int id)
         {
-            if (id != objetivoAluno.IdObjetivoAluno)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(objetivoAluno).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ObjetivoAlunoExists(id))
-                {
+                ObjetivoAluno objetivoAluno = _objetivoAlunoRepository.BuscarID(id);
+
+                if (perfil == null)
                     return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+
+                return Ok(perfil);
             }
-            return NoContent();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -91,13 +112,7 @@ namespace APIEdux.Controllers
         /// <returns>ObjetivoAluno adicionado</returns>
         /// 
         [HttpPost]
-        public async Task<ActionResult<Perfil>> PostObjetivoAluno(ObjetivoAluno objetivoAluno)
-        {
-            _context.ObjetivoAluno.Add(objetivoAluno);
-            await _context.SaveChangesAsync();
-
-            return CreatedAtAction("GetObjetivoAluno", new { id = objetivoAluno.IdObjetivoAluno }, objetivoAluno);
-        }
+        
 
         /// <summary>
         /// Exclui um ObjetivoAluno
