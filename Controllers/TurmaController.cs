@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using APIEdux.Contexts;
 using APIEdux.Domains;
 using Microsoft.AspNetCore.Authorization;
+using APIEdux.Repositories;
 
 namespace APIEdux.Controllers
 {
@@ -16,16 +17,41 @@ namespace APIEdux.Controllers
     [ApiController]
     public class TurmaController : ControllerBase
     {
-        private EduxContext _context = new EduxContext();
+        private readonly TurmaRepository _turmaRepository;
+
+        public TurmaController()
+        {
+            _turmaRepository = new TurmaRepository();
+        }
 
         /// <summary>
         /// Lista todas as turmas.
         /// </summary>
         /// <returns>Lista das turmas cadastrados</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Turma>>> GetTurma()
+        public IActionResult Get()
         {
-            return await _context.Turma.ToListAsync();
+            try
+            {
+                var turmas = _turmaRepository.Listar();
+
+                if (turmas.Count == 0)
+                    return NoContent();
+
+                return Ok(new
+                {
+                    totalCount = turmas.Count,
+                    data = turmas
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    statusCode = 400,
+                    error = "Envie um email para email@email.com informando que ocorreu um erro no endpoint Get/Usuarios"
+                });
+            }
         }
 
         /// <summary>
@@ -34,16 +60,21 @@ namespace APIEdux.Controllers
         /// <param name="id">ID de pesquisa</param>
         /// <returns>Turma pesquisada</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Turma>> GetTurma(int id)
+        public IActionResult Get(int id)
         {
-            var turma = await _context.Turma.FindAsync(id);
-
-            if (turma == null)
+            try
             {
-                return NotFound();
-            }
+                Turma turma = _turmaRepository.BuscarID(id);
 
-            return turma;
+                if (turma == null)
+                    return NotFound();
+
+                return Ok(turma);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -53,32 +84,24 @@ namespace APIEdux.Controllers
         /// <param name="turma">Turma a ser editada</param>
         /// <returns>Resultado da edição</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutTurma(int id, Turma turma)
+        public IActionResult Put(int id, Turma turma)
         {
-            if (id != turma.IdTurma)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(turma).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!TurmaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                var turmaTemp = _turmaRepository.BuscarID(id);
 
-            return NoContent();
+                if (turmaTemp == null)
+                    return NotFound();
+
+                turma.IdTurma = id;
+                _turmaRepository.Editar(turma);
+
+                return Ok(turma);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -87,12 +110,18 @@ namespace APIEdux.Controllers
         /// <param name="turma">Turma a ser adicionada</param>
         /// <returns>Turma adicionada</returns>
         [HttpPost]
-        public async Task<ActionResult<Turma>> PostTurma(Turma turma)
+        public IActionResult Post(Turma turma)
         {
-            _context.Turma.Add(turma);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _turmaRepository.Adicionar(turma);
 
-            return CreatedAtAction("GetTurma", new { id = turma.IdTurma }, turma);
+                return Ok(turma);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -101,23 +130,18 @@ namespace APIEdux.Controllers
         /// <param name="id">ID da turma para ser excluida</param>
         /// <returns>Status code da ação</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Turma>> DeleteTurma(int id)
+        public IActionResult Delete(int id)
         {
-            var turma = await _context.Turma.FindAsync(id);
-            if (turma == null)
+            try
             {
-                return NotFound();
+                _turmaRepository.Excluir(id);
+
+                return Ok(id);
             }
-
-            _context.Turma.Remove(turma);
-            await _context.SaveChangesAsync();
-
-            return turma;
-        }
-
-        private bool TurmaExists(int id)
-        {
-            return _context.Turma.Any(e => e.IdTurma == id);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
