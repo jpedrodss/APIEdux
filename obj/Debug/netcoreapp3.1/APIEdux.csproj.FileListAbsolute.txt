@@ -161,7 +161,6 @@ C:\Users\João Pedro\Documents\Visual Studio\APIEdux\obj\Debug\netcoreapp3.1\API
 C:\Users\João Pedro\Documents\Visual Studio\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.MvcApplicationPartsAssemblyInfo.cache
 C:\Users\João Pedro\Documents\Visual Studio\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.xml
 <<<<<<< HEAD
-<<<<<<< HEAD
 C:\Users\000\Documents\GitHub\APIEdux\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\000\Documents\GitHub\APIEdux\bin\Debug\netcoreapp3.1\appsettings.json
 C:\Users\000\Documents\GitHub\APIEdux\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
@@ -324,7 +323,6 @@ C:\Users\000\Documents\GitHub\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.dll
 C:\Users\000\Documents\GitHub\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.xml
 C:\Users\000\Documents\GitHub\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.pdb
 C:\Users\000\Documents\GitHub\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.genruntimeconfig.cache
-=======
 =======
 >>>>>>> master
 C:\Users\ale\Desktop\Senai\2ºTermo\APIEdux\bin\Debug\netcoreapp3.1\appsettings.Development.json
@@ -651,7 +649,3 @@ C:\Users\GamerPro\Documents\GitHub\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.cspro
 C:\Users\GamerPro\Documents\GitHub\APIEdux\obj\Debug\netcoreapp3.1\staticwebassets\APIEdux.StaticWebAssets.Manifest.cache
 C:\Users\GamerPro\Documents\GitHub\APIEdux\obj\Debug\netcoreapp3.1\staticwebassets\APIEdux.StaticWebAssets.xml
 C:\Users\GamerPro\Documents\GitHub\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.genruntimeconfig.cache
-<<<<<<< HEAD
->>>>>>> master
-=======
->>>>>>> master
