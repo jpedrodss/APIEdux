@@ -1,13 +1,9 @@
-﻿using APIEdux.Contexts;
-using APIEdux.Domains;
+﻿using APIEdux.Domains;
 using APIEdux.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace APIEdux.Controllers
 {
@@ -55,12 +51,39 @@ namespace APIEdux.Controllers
             }
         }
 
+
+        /// <summary>
+        /// Edita um ObjetivoAluno
+        /// </summary>
+        /// <param name="id">ID do ObjetivoAluno</param>
+        /// <param name="objetivoAluno">AlunoTurma para ser editado</param>
+        /// <returns></returns>
+        [HttpPut("{id}")]
+        public IActionResult Put(int id, ObjetivoAluno objetivoAluno)
+        {
+            try
+            {
+                var objetivoAlunoTemp = _objetivoAlunoRepository.BuscarID(id);
+
+                if (objetivoAlunoTemp == null)
+                    return NotFound();
+
+                objetivoAluno.IdObjetivo = id;
+                _objetivoAlunoRepository.Editar(objetivoAluno);
+
+                return Ok(objetivoAluno);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
         /// <summary>
         /// Procura um ObjetivoAluno especifico por ID
         /// </summary>
         /// <param name="id"></param>
-        /// <returns>ObjetivoAluno pesquisado</returns>
-
+        /// <returns>Objetivo pesquisado</returns>
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
@@ -79,25 +102,20 @@ namespace APIEdux.Controllers
             }
         }
 
-
         /// <summary>
-        /// Edita um ObjetivoAluno
+        /// Adiciona um ObjetivoAluno
         /// </summary>
-        /// <param name="id">ID do ObjetivoAluno</param>
-        /// <param name="objetivoAluno">AlunoTurma para ser editado</param>
-        /// <returns></returns>
-
-        [HttpPut("{id}")]
-        public IActionResult Get(int id)
+        /// <param name="objetivoAluno">ObjetivoAluno a ser adicionado</param>
+        /// <returns>ObjetivoAluno adicionado</returns>
+        /// 
+        [HttpPost]
+        public IActionResult Post(ObjetivoAluno objetivoAluno)
         {
             try
             {
-                ObjetivoAluno objetivoAluno = _objetivoAlunoRepository.BuscarID(id);
+                _objetivoAlunoRepository.Adicionar(objetivoAluno);
 
-                if (perfil == null)
-                    return NotFound();
-
-                return Ok(perfil);
+                return Ok(objetivoAluno);
             }
             catch (Exception ex)
             {
@@ -106,39 +124,24 @@ namespace APIEdux.Controllers
         }
 
         /// <summary>
-        /// Adiciona um ObjetivoAluno
-        /// </summary>
-        /// <param name="objetivoAluno">ObjetivoAluno a ser adicionado</param>
-        /// <returns>ObjetivoAluno adicionado</returns>
-        /// 
-        [HttpPost]
-        
-
-        /// <summary>
         /// Exclui um ObjetivoAluno
         /// </summary>
         /// <param name="id">ID do ObjetivoAluno para ser excluido</param>
         /// <returns>Status code da ação</returns>
-        
+
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ObjetivoAluno>> DeleteObjetivoAluno(int id)
+        public IActionResult Delete(int id)
         {
-            var objetivoAluno = await _context.ObjetivoAluno.FindAsync(id);
-            if (objetivoAluno == null)
+            try
             {
-                return NotFound();
+                _objetivoAlunoRepository.Excluir(id);
+
+                return Ok(id);
             }
-
-            _context.ObjetivoAluno.Remove(objetivoAluno);
-            await _context.SaveChangesAsync();
-
-            return objetivoAluno;
-        }
-
-
-        private bool ObjetivoAlunoExists(int id)
-        {
-            return _context.ObjetivoAluno.Any(e => e.IdObjetivoAluno == id);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
