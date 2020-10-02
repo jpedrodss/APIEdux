@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using APIEdux.Contexts;
 using APIEdux.Domains;
+using APIEdux.Repositories;
 
 namespace APIEdux.Controllers
 {
@@ -14,11 +15,10 @@ namespace APIEdux.Controllers
     [ApiController]
     public class ProfessorTurmasController : ControllerBase
     {
-        private readonly EduxContext _context;
-
-        public ProfessorTurmasController(EduxContext context)
+        private readonly ProfessorTurmaRepository _professorTurmasRepository;
+        public ProfessorTurmasController()
         {
-            _context = context;
+            _professorTurmasRepository = new ProfessorTurmaRepository();
         }
 
         /// <summary>
@@ -26,9 +26,29 @@ namespace APIEdux.Controllers
         /// </summary>
         /// <returns>Lista ProfessorTurma</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ProfessorTurma>>> GetProfessorTurma()
+        public IActionResult Get()
         {
-            return await _context.ProfessorTurma.ToListAsync();
+            try
+            {
+                var professorTurmas = _professorTurmasRepository.Listar();
+
+                if (professorTurmas.Count == 0)
+                    return NoContent();
+
+                return Ok(new
+                {
+                    totalCount = professorTurmas.Count,
+                    data = professorTurmas
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    statusCode = 400,
+                    error = "Envie um email para email@email.com informando que ocorreu um erro no endpoit Get/ProfessorTurma "
+                });
+            }
         }
 
         /// <summary>
@@ -37,16 +57,21 @@ namespace APIEdux.Controllers
         /// <param name="id"> id de pesquisa </param>
         /// <returns> ProfessorTurma pesquisado </returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<ProfessorTurma>> GetProfessorTurma(int id)
+        public IActionResult Get(int id)
         {
-            var professorTurma = await _context.ProfessorTurma.FindAsync(id);
-
-            if (professorTurma == null)
+            try
             {
-                return NotFound();
-            }
+                ProfessorTurma professorTurma = _professorTurmasRepository.BuscarID(id);
 
-            return professorTurma;
+                if (professorTurma == null)
+                    return NotFound();
+
+                return Ok(professorTurma);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -56,71 +81,62 @@ namespace APIEdux.Controllers
         /// <param name="professorTurma">ProfessorTurma para ser editado</param>
         /// <returns>Resultado da edição</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutProfessorTurma(int id, ProfessorTurma professorTurma)
+        public IActionResult Put(int id, ProfessorTurma professorTurma)
         {
-            if (id != professorTurma.IdProfessorTurma)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(professorTurma).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!ProfessorTurmaExists(id))
-                {
+                var professorTurmaTemp = _professorTurmasRepository.BuscarID(id);
+
+                if (professorTurmaTemp == null)
                     return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
+
+                professorTurma.IdProfessorTurma = id;
+                _professorTurmasRepository.Editar(professorTurma);
+
+                return Ok(professorTurma);
             }
-
-            return NoContent();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-
         /// <summary>
         /// Adiciona um ProfessorTurma
         /// </summary>
         /// <param name="professorTurma">ProfessorTurma a ser adicionado</param>
         /// <returns>ProfessorTurma adicionado</returns>
         [HttpPost]
-        public async Task<ActionResult<ProfessorTurma>> PostProfessorTurma(ProfessorTurma professorTurma)
+        public IActionResult Post(ProfessorTurma professorTurma)
         {
-            _context.ProfessorTurma.Add(professorTurma);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _professorTurmasRepository.Adicionar(professorTurma);
 
-            return CreatedAtAction("GetProfessorTurma", new { id = professorTurma.IdProfessorTurma }, professorTurma);
+                return Ok(professorTurma);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-
         /// <summary>
         /// Exclui um ProfessorTurma
         /// </summary>
         /// <param name="id">ID do ProfessorTurma para ser excluido</param>
         /// <returns>Status code da ação</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<ProfessorTurma>> DeleteProfessorTurma(int id)
+        public IActionResult Delete(int id)
         {
-            var professorTurma = await _context.ProfessorTurma.FindAsync(id);
-            if (professorTurma == null)
+            try
             {
-                return NotFound();
+                _professorTurmasRepository.Excluir(id);
+
+                return Ok(id);
             }
-
-            _context.ProfessorTurma.Remove(professorTurma);
-            await _context.SaveChangesAsync();
-
-            return professorTurma;
-        }
-
-        private bool ProfessorTurmaExists(int id)
-        {
-            return _context.ProfessorTurma.Any(e => e.IdProfessorTurma == id);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
