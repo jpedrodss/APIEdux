@@ -1,12 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using APIEdux.Contexts;
 using APIEdux.Domains;
+using APIEdux.Repositories;
+using Microsoft.EntityFrameworkCore;
 
 namespace APIEdux.Controllers
 {
@@ -14,16 +10,39 @@ namespace APIEdux.Controllers
     [ApiController]
     public class CursoController : ControllerBase
     {
-        private EduxContext _context = new EduxContext();
+
+        private readonly CursoRepository _cursoRepository;
+
+        public CursoController()
+        {
+            _cursoRepository = new CursoRepository();
+        }
 
         /// <summary>
         /// Lista todos itens do Objeto Curso
         /// </summary>
         /// <returns>Lista Curso</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Curso>>> GetCurso()
+        public IActionResult Get()
         {
-            return await _context.Curso.ToListAsync();
+            try
+            {
+                var cursos = _cursoRepository.Listar();
+
+                if (cursos.Count == 0)
+                    return NoContent();
+
+                return Ok(new
+                {
+                    totalCount = cursos.Count,
+                    data = cursos
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest();
+               
+            }
         }
 
         /// <summary>
@@ -32,18 +51,22 @@ namespace APIEdux.Controllers
         /// <param name="id"></param>
         /// <returns>Busca curso por id</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Curso>> GetCurso(int id)
+        public IActionResult Get(int id)
         {
-            var curso = await _context.Curso.FindAsync(id);
-
-            if (curso == null)
+            try
             {
-                return NotFound();
+                Curso curso = _cursoRepository.BuscarID(id);
+
+                if (curso == null)
+                    return NotFound();
+
+                return Ok(curso);
             }
-
-            return curso;
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
-
         /// <summary>
         /// Edita Itens do Objeto Curso
         /// </summary>
@@ -51,32 +74,24 @@ namespace APIEdux.Controllers
         /// <param name="curso"></param>
         /// <returns></returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutCurso(int id, Curso curso)
+        public IActionResult Put(int id, Curso curso)
         {
-            if (id != curso.IdCurso)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(curso).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!CursoExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                var cursoTemp = _cursoRepository.BuscarID(id);
 
-            return NoContent();
+                if (cursoTemp == null)
+                    return NotFound();
+
+                curso.IdCurso = id;
+                _cursoRepository.Editar(curso);
+
+                return Ok(curso);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -85,12 +100,18 @@ namespace APIEdux.Controllers
         /// <param name="curso"></param>
         /// <returns>Adiciona Curso</returns>
         [HttpPost]
-        public async Task<ActionResult<Curso>> PostCurso(Curso curso)
+        public IActionResult Post(Curso curso)
         {
-            _context.Curso.Add(curso);
-            await _context.SaveChangesAsync();
+            try
+            {
+                _cursoRepository.Adicionar(curso);
 
-            return CreatedAtAction("GetCurso", new { id = curso.IdCurso }, curso);
+                return Ok(curso);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -99,23 +120,18 @@ namespace APIEdux.Controllers
         /// <param name="id"></param>
         /// <returns>Exclui Curso</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Curso>> DeleteCurso(int id)
+        public IActionResult Delete(int id)
         {
-            var curso = await _context.Curso.FindAsync(id);
-            if (curso == null)
+            try
             {
-                return NotFound();
+                _cursoRepository.Excluir(id);
+
+                return Ok(id);
             }
-
-            _context.Curso.Remove(curso);
-            await _context.SaveChangesAsync();
-
-            return curso;
-        }
-
-        private bool CursoExists(int id)
-        {
-            return _context.Curso.Any(e => e.IdCurso == id);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }

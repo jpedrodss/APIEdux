@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 using APIEdux.Contexts;
 using APIEdux.Domains;
+<<<<<<< HEAD
 using APIEdux.Repositories;
+=======
+using Microsoft.EntityFrameworkCore;
+>>>>>>> 361cb5396a01e74059577329189438cf2d1e7f94
 
 namespace APIEdux.Controllers
 {
