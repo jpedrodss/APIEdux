@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using APIEdux.Domains;
+using APIEdux.Interfaces;
 using APIEdux.Repositories;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace APIEdux.Controllers
@@ -13,7 +15,7 @@ namespace APIEdux.Controllers
     [ApiController]
     public class UsuarioController : ControllerBase
     {
-        private readonly UsuarioRepository _usuarioRepository;
+        private readonly IUsuario _usuarioRepository;
 
         public UsuarioController()
         {
@@ -25,7 +27,6 @@ namespace APIEdux.Controllers
         /// </summary>
         /// <returns>Lista de usuários</returns>
         [HttpGet]
-        [Authorize(Roles = "Professor")]
         public IActionResult Get()
         {
             try
@@ -57,7 +58,6 @@ namespace APIEdux.Controllers
         /// <param name="id">Id do Usuário</param>
         /// <returns>Usuário buscado</returns>
         [HttpGet("{id}")]
-        [Authorize(Roles = "Professor")]
         public IActionResult Get(int id)
         {
             try
@@ -81,8 +81,7 @@ namespace APIEdux.Controllers
         /// <param name="usuario">Usuario a ser adicionado</param>
         /// <returns>Usuario adicionado</returns>
         [HttpPost]
-        [AllowAnonymous]
-        public IActionResult Post( Usuario usuario)
+        public IActionResult Post(Usuario usuario)
         {
             try
             {
@@ -103,7 +102,6 @@ namespace APIEdux.Controllers
         /// <param name="usuario">Objeto para pegar informações do usuário</param>
         /// <returns>Alterações feitas</returns>
         [HttpPut("{id}")]
-        [Authorize(Roles = "Aluno, Professor")]
         public IActionResult Put(int id, Usuario usuario)
         {
             try
@@ -130,7 +128,6 @@ namespace APIEdux.Controllers
         /// <param name="id">ID do usuario para ser exlcuido</param>
         /// <returns>Status code</returns>
         [HttpDelete("{id}")]
-        [Authorize(Roles = "Professor")]
         public IActionResult Delete(int id)
         {
             try
