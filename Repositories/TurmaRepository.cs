@@ -1,5 +1,6 @@
 ﻿using APIEdux.Contexts;
 using APIEdux.Domains;
+using APIEdux.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace APIEdux.Repositories
 {
-    public class TurmaRepository
+    public class TurmaRepository : ITurma
     {
         private readonly EduxContext _ctx;
 
