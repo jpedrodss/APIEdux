@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30503.244
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIEdux", "APIEdux.csproj", "{9BF47C57-DFFC-4751-907A-14D954B579EB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "APIEdux", "APIEdux\APIEdux.csproj", "{880CEC3B-EC3B-4AA7-B837-90DCBB516788}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{9BF47C57-DFFC-4751-907A-14D954B579EB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{9BF47C57-DFFC-4751-907A-14D954B579EB}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{9BF47C57-DFFC-4751-907A-14D954B579EB}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{9BF47C57-DFFC-4751-907A-14D954B579EB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{880CEC3B-EC3B-4AA7-B837-90DCBB516788}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{880CEC3B-EC3B-4AA7-B837-90DCBB516788}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{880CEC3B-EC3B-4AA7-B837-90DCBB516788}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{880CEC3B-EC3B-4AA7-B837-90DCBB516788}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {32264F72-2A5A-4EB5-A5B6-1EA01AEE77A2}
+		SolutionGuid = {983E0323-D5D9-494F-ACF8-BF9B468F2902}
 	EndGlobalSection
 EndGlobal
