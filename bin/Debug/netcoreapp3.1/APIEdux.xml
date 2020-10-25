@@ -109,55 +109,47 @@
             <param name="id"></param>
             <returns>Exclui Curso</returns>
         </member>
-        <member name="M:APIEdux.Controllers.CurtidaController.GetCurtida">
+        <member name="M:APIEdux.Controllers.CurtidaController.Get">
             <summary>
             Lista todos itens do Objeto Curtida
             </summary>
             <returns>Lista Curtida</returns>
         </member>
-        <member name="M:APIEdux.Controllers.CurtidaController.GetCurtida(System.Int32)">
+        <member name="M:APIEdux.Controllers.CurtidaController.Get(System.Int32)">
             <summary>
             Busca Objeto curtida por id
             </summary>
             <param name="id"></param>
             <returns>Busca curtida por id</returns>
         </member>
-        <member name="M:APIEdux.Controllers.CurtidaController.PutCurtida(System.Int32,APIEdux.Domains.Curtida)">
-            <summary>
-            Edita Itens do Objeto Curtida
-            </summary>
-            <param name="id"></param>
-            <param name="curtida"></param>
-            <returns></returns>
-        </member>
-        <member name="M:APIEdux.Controllers.CurtidaController.PostCurtida(APIEdux.Domains.Curtida)">
+        <member name="M:APIEdux.Controllers.CurtidaController.Post(APIEdux.Domains.Curtida)">
             <summary>
             Adiciona Objeto Curtida
             </summary>
             <param name="curtida"></param>
             <returns>Adiciona Curtida</returns>
         </member>
-        <member name="M:APIEdux.Controllers.CurtidaController.DeleteCurtida(System.Int32)">
+        <member name="M:APIEdux.Controllers.CurtidaController.Delete(System.Int32)">
             <summary>
             Exclui Objeto Curtida
             </summary>
             <param name="id"></param>
             <returns>Exclui Curtida</returns>
         </member>
-        <member name="M:APIEdux.Controllers.DicasController.GetDica">
+        <member name="M:APIEdux.Controllers.DicaController.Get">
             <summary>
             Lista todos itens do Objeto Dicas
             </summary>
             <returns>Dica Categoria</returns>
         </member>
-        <member name="M:APIEdux.Controllers.DicasController.GetDica(System.Int32)">
+        <member name="M:APIEdux.Controllers.DicaController.Get(System.Int32)">
             <summary>
             Busca Objeto Dica por id
             </summary>
             <param name="id"></param>
             <returns>Dica Buscada</returns>
         </member>
-        <member name="M:APIEdux.Controllers.DicasController.PutDica(System.Int32,APIEdux.Domains.Dica)">
+        <member name="M:APIEdux.Controllers.DicaController.Put(System.Int32,APIEdux.Domains.Dica)">
             <summary>
             Edita Objeto dica
             </summary>
@@ -165,14 +157,14 @@
             <param name="dica"></param>
             <returns>Itens dica a serem editados</returns>
         </member>
-        <member name="M:APIEdux.Controllers.DicasController.PostDica(APIEdux.Domains.Dica)">
+        <member name="M:APIEdux.Controllers.DicaController.Post(APIEdux.Domains.Dica)">
             <summary>
             Adiciona Objeto Dica
             </summary>
             <param name="dica"></param>
             <returns>Objeto dica a ser adicionado</returns>
         </member>
-        <member name="M:APIEdux.Controllers.DicasController.DeleteDica(System.Int32)">
+        <member name="M:APIEdux.Controllers.DicaController.Delete(System.Int32)">
             <summary>
             Exclui Objeto Dica
             </summary>
@@ -342,20 +334,20 @@
             <param name="id">ID do perfil para ser excluido</param>
             <returns>Status code da ação</returns>
         </member>
-        <member name="M:APIEdux.Controllers.ProfessorTurmasController.GetProfessorTurma">
+        <member name="M:APIEdux.Controllers.ProfessorTurmasController.Get">
             <summary>
             Lista todos itens do Objeto ProfessorTurma
             </summary>
             <returns>Lista ProfessorTurma</returns>
         </member>
-        <member name="M:APIEdux.Controllers.ProfessorTurmasController.GetProfessorTurma(System.Int32)">
+        <member name="M:APIEdux.Controllers.ProfessorTurmasController.Get(System.Int32)">
             <summary>
             Procura um ProfessorTurma expecifico por ID
             </summary>
             <param name="id"> id de pesquisa </param>
             <returns> ProfessorTurma pesquisado </returns>
         </member>
-        <member name="M:APIEdux.Controllers.ProfessorTurmasController.PutProfessorTurma(System.Int32,APIEdux.Domains.ProfessorTurma)">
+        <member name="M:APIEdux.Controllers.ProfessorTurmasController.Put(System.Int32,APIEdux.Domains.ProfessorTurma)">
             <summary>
             Edita um ProfessorTurma
             </summary>
@@ -363,14 +355,14 @@
             <param name="professorTurma">ProfessorTurma para ser editado</param>
             <returns>Resultado da edição</returns>
         </member>
-        <member name="M:APIEdux.Controllers.ProfessorTurmasController.PostProfessorTurma(APIEdux.Domains.ProfessorTurma)">
+        <member name="M:APIEdux.Controllers.ProfessorTurmasController.Post(APIEdux.Domains.ProfessorTurma)">
             <summary>
             Adiciona um ProfessorTurma
             </summary>
             <param name="professorTurma">ProfessorTurma a ser adicionado</param>
             <returns>ProfessorTurma adicionado</returns>
         </member>
-        <member name="M:APIEdux.Controllers.ProfessorTurmasController.DeleteProfessorTurma(System.Int32)">
+        <member name="M:APIEdux.Controllers.ProfessorTurmasController.Delete(System.Int32)">
             <summary>
             Exclui um ProfessorTurma
             </summary>

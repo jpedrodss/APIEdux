@@ -4,24 +4,47 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using APIEdux.Contexts;
 using APIEdux.Domains;
+using APIEdux.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System;
+using APIEdux.Utils;
 
 namespace APIEdux.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DicasController : ControllerBase
+    public class DicaController : ControllerBase
     {
-        private EduxContext _context = new EduxContext();
+        private readonly DicaRepository _dicaRepository;
 
         /// <summary>
         /// Lista todos itens do Objeto Dicas
         /// </summary>
         /// <returns>Dica Categoria</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Dica>>> GetDica()
+        public IActionResult Get()
         {
-            return await _context.Dica.ToListAsync();
+            try
+            {
+                var dicas = _dicaRepository.Listar();
+
+                if (dicas.Count == 0)
+                    return NoContent();
+
+                return Ok(new
+                {
+                    totalCount = dicas.Count,
+                    data = dicas
+                });
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new
+                {
+                    statusCode = 400,
+                    error = "Envie um email para email@email.com informando que ocorreu um erro no endpoint Get/Usuarios"
+                });
+            }
         }
 
         /// <summary>
@@ -30,16 +53,21 @@ namespace APIEdux.Controllers
         /// <param name="id"></param>
         /// <returns>Dica Buscada</returns>
         [HttpGet("{id}")]
-        public async Task<ActionResult<Dica>> GetDica(int id)
+        public IActionResult Get(int id)
         {
-            var dica = await _context.Dica.FindAsync(id);
-
-            if (dica == null)
+            try
             {
-                return NotFound();
-            }
+                Dica dica = _dicaRepository.BuscarID(id);
 
-            return dica;
+                if (dica == null)
+                    return NotFound();
+
+                return Ok(dica);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -49,32 +77,24 @@ namespace APIEdux.Controllers
         /// <param name="dica"></param>
         /// <returns>Itens dica a serem editados</returns>
         [HttpPut("{id}")]
-        public async Task<IActionResult> PutDica(int id, Dica dica)
+        public IActionResult Put(int id, Dica dica)
         {
-            if (id != dica.IdDica)
-            {
-                return BadRequest();
-            }
-
-            _context.Entry(dica).State = EntityState.Modified;
-
             try
             {
-                await _context.SaveChangesAsync();
-            }
-            catch (DbUpdateConcurrencyException)
-            {
-                if (!DicaExists(id))
-                {
-                    return NotFound();
-                }
-                else
-                {
-                    throw;
-                }
-            }
+                var dicaTemp = _dicaRepository.BuscarID(id);
 
-            return NoContent();
+                if (dicaTemp == null)
+                    return NotFound();
+
+                dica.IdDica = id;
+                _dicaRepository.Editar(dica);
+
+                return Ok(dica);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
 
         /// <summary>
@@ -83,12 +103,22 @@ namespace APIEdux.Controllers
         /// <param name="dica"></param>
         /// <returns>Objeto dica a ser adicionado</returns>
         [HttpPost]
-        public async Task<ActionResult<Dica>> PostDica(Dica dica)
+        public IActionResult Post([FromForm] Dica dica)
         {
-            _context.Dica.Add(dica);
-            await _context.SaveChangesAsync();
+            try
+            {
+                if(dica.Imagem != null)
+                {
+                    var urlImagem = Upload.Local(dica.Imagem);
+                }
+                _dicaRepository.Adicionar(dica);
 
-            return CreatedAtAction("GetDica", new { id = dica.IdDica }, dica);
+                return Ok(dica);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
         /// <summary>
         /// Exclui Objeto Dica
@@ -96,23 +126,18 @@ namespace APIEdux.Controllers
         /// <param name="id"></param>
         /// <returns>Objeto dica a ser Excluido</returns>
         [HttpDelete("{id}")]
-        public async Task<ActionResult<Dica>> DeleteDica(int id)
+        public IActionResult Delete(int id)
         {
-            var dica = await _context.Dica.FindAsync(id);
-            if (dica == null)
+            try
             {
-                return NotFound();
+                _dicaRepository.Excluir(id);
+
+                return Ok(id);
             }
-
-            _context.Dica.Remove(dica);
-            await _context.SaveChangesAsync();
-
-            return dica;
-        }
-
-        private bool DicaExists(int id)
-        {
-            return _context.Dica.Any(e => e.IdDica == id);
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
         }
     }
 }
