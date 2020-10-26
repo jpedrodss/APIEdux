@@ -115,6 +115,7 @@ namespace APIEdux.Controllers
                 if (dica.Imagem != null)
                 {
                     var urlImagem = Upload.Local(dica.Imagem);
+                    dica.UrlImagem = urlImagem;
                 }
                 _dicaRepository.Adicionar(dica);
 
