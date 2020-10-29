@@ -72,5 +72,25 @@ namespace APIEdux.Controllers
                 return BadRequest(ex.Message);
             }
         }
+
+        /// <summary>
+        /// Adiciona Objeto Curso
+        /// </summary>
+        /// <param name="curso"></param>
+        /// <returns>Adiciona Curso</returns>
+        [HttpPost]
+        public IActionResult Post(Curtida curtida)
+        {
+            try
+            {
+                _curtidaRepository.Adicionar(curtida);
+
+                return Ok(curtida);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
     }
 }

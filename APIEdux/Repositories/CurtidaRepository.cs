@@ -17,6 +17,20 @@ namespace APIEdux.Repositories
             _ctx = new EduxContext();
         }
 
+        public void Adicionar(Curtida curtida)
+        {
+            try
+            {
+                _ctx.Curtida.Add(curtida);
+
+                _ctx.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message);
+            }
+        }
+
         public Curtida BuscarID(int id)
         {
             try
