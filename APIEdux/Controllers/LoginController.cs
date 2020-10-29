@@ -53,6 +53,7 @@ namespace APIEdux.Controllers
             var claims = new[] {
                 new Claim(JwtRegisteredClaimNames.NameId, userInfo.Nome),
                 new Claim(JwtRegisteredClaimNames.Email, userInfo.Email),
+                new Claim("Role", userInfo.IdPerfil.ToString()),
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
                 new Claim(ClaimTypes.Role, userInfo.IdPerfilNavigation.Permissao)
         };
