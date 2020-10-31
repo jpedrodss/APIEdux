@@ -122,6 +122,20 @@
             <param name="id"></param>
             <returns>Busca curtida por id</returns>
         </member>
+        <member name="M:APIEdux.Controllers.CurtidaController.Post(APIEdux.Domains.Curtida)">
+            <summary>
+            Adiciona Objeto Curtida
+            </summary>
+            <param name="curtida"></param>
+            <returns>Adiciona Curtida</returns>
+        </member>
+        <member name="M:APIEdux.Controllers.CurtidaController.Delete(System.Int32)">
+            <summary>
+            Exclui Objeto Curtida
+            </summary>
+            <param name="id"></param>
+            <returns>Objeto curtida a ser Excluido</returns>
+        </member>
         <member name="M:APIEdux.Controllers.DicasController.Get">
             <summary>
             Lista todos itens do Objeto Dicas

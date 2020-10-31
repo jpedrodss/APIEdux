@@ -89,7 +89,7 @@ namespace APIEdux.Repositories
                 Usuario usuario = BuscarID(id);
 
                 if (usuario == null)
-                    throw new Exception("usuario não encontrado.");
+                    throw new Exception("Usuario não encontrado.");
 
                 _ctx.Usuario.Remove(usuario);
 

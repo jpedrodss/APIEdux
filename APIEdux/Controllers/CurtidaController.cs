@@ -74,10 +74,10 @@ namespace APIEdux.Controllers
         }
 
         /// <summary>
-        /// Adiciona Objeto Curso
+        /// Adiciona Objeto Curtida
         /// </summary>
-        /// <param name="curso"></param>
-        /// <returns>Adiciona Curso</returns>
+        /// <param name="curtida"></param>
+        /// <returns>Adiciona Curtida</returns>
         [HttpPost]
         public IActionResult Post(Curtida curtida)
         {
@@ -86,6 +86,26 @@ namespace APIEdux.Controllers
                 _curtidaRepository.Adicionar(curtida);
 
                 return Ok(curtida);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+        }
+
+        /// <summary>
+        /// Exclui Objeto Curtida
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns>Objeto curtida a ser Excluido</returns>
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                _curtidaRepository.Excluir(id);
+
+                return Ok(id);
             }
             catch (Exception ex)
             {
