@@ -106,7 +106,7 @@ namespace APIEdux.Controllers
             {
                 _cursoRepository.Adicionar(curso);
 
-                return Ok(curso);
+                return Ok(curso); 
             }
             catch (Exception ex)
             {
