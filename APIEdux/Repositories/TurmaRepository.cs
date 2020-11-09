@@ -1,6 +1,7 @@
 ﻿using APIEdux.Contexts;
 using APIEdux.Domains;
 using APIEdux.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -109,7 +110,13 @@ namespace APIEdux.Repositories
         {
             try
             {
-                List<Turma> turmas = _ctx.Turma.ToList();
+                List<Turma> turmas = _ctx.Turma.Include("IdCursoNavigation").ToList();
+
+                foreach (Turma _turma in turmas)
+                {
+                    _turma.IdCursoNavigation.Turma = null;
+                }
+
                 return turmas;
             }
             catch (Exception ex)

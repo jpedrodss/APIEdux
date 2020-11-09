@@ -68,6 +68,7 @@ namespace APIEdux.Repositories
                 usuarioTemp.Nome = usuario.Nome;
                 usuarioTemp.Email = usuario.Email;
                 usuarioTemp.Senha = usuario.Senha;
+                usuarioTemp.IdPerfil = usuario.IdPerfil;
                 _ctx.Usuario.Update(usuarioTemp);
 
                 _ctx.SaveChanges();

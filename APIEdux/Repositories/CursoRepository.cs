@@ -1,6 +1,7 @@
 ﻿using APIEdux.Contexts;
 using APIEdux.Domains;
 using APIEdux.Interfaces;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -106,8 +107,22 @@ namespace APIEdux.Repositories
         /// <returns></returns>
         public List<Curso> Listar()
         {
-            List<Curso> cursos = _ctx.Curso.ToList();
-            return cursos;
+            try
+            {
+                List<Curso> cursos = _ctx.Curso.Include("IdInstituicaoNavigation").ToList();
+
+                foreach (Curso _curso in cursos)
+                {
+                    _curso.IdInstituicaoNavigation.Curso = null;
+                }
+
+                return cursos;
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception(ex.Message);
+            }
         }
     }
 }

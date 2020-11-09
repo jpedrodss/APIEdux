@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\João Pedro\\Documents\\Visual Studio\\APIEdux\\APIEdux\\APIEdux.csproj": {}
+    "C:\\Users\\João Pedro\\Documents\\SENAI\\API\\APIEdux\\APIEdux\\APIEdux.csproj": {}
   },
   "projects": {
-    "C:\\Users\\João Pedro\\Documents\\Visual Studio\\APIEdux\\APIEdux\\APIEdux.csproj": {
+    "C:\\Users\\João Pedro\\Documents\\SENAI\\API\\APIEdux\\APIEdux\\APIEdux.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\João Pedro\\Documents\\Visual Studio\\APIEdux\\APIEdux\\APIEdux.csproj",
+        "projectUniqueName": "C:\\Users\\João Pedro\\Documents\\SENAI\\API\\APIEdux\\APIEdux\\APIEdux.csproj",
         "projectName": "APIEdux",
-        "projectPath": "C:\\Users\\João Pedro\\Documents\\Visual Studio\\APIEdux\\APIEdux\\APIEdux.csproj",
+        "projectPath": "C:\\Users\\João Pedro\\Documents\\SENAI\\API\\APIEdux\\APIEdux\\APIEdux.csproj",
         "packagesPath": "C:\\Users\\João Pedro\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\João Pedro\\Documents\\Visual Studio\\APIEdux\\APIEdux\\obj\\",
+        "outputPath": "C:\\Users\\João Pedro\\Documents\\SENAI\\API\\APIEdux\\APIEdux\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\João Pedro\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -42,6 +42,10 @@
               "target": "Package",
               "version": "[3.1.8, )"
             },
+            "Microsoft.AspNetCore.Mvc.NewtonsoftJson": {
+              "target": "Package",
+              "version": "[3.1.9, )"
+            },
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
               "version": "[3.1.9, )"
@@ -61,6 +65,10 @@
               "suppressParent": "All",
               "target": "Package",
               "version": "[3.1.9, )"
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
             },
             "Swashbuckle.AspNetCore.Swagger": {
               "target": "Package",
@@ -93,7 +101,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.402\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.403\\RuntimeIdentifierGraph.json"
         }
       }
     }
