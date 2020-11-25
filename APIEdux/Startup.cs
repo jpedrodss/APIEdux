@@ -98,8 +98,6 @@ namespace APIEdux
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseSwagger(c =>
             {
                 c.SerializeAsV2 = true;

@@ -202,7 +202,6 @@ C:\Users\João Pedro\Documents\SENAI\API\APIEdux\APIEdux\obj\Debug\netcoreapp3.1
 C:\Users\João Pedro\Documents\SENAI\API\APIEdux\APIEdux\obj\Debug\netcoreapp3.1\staticwebassets\APIEdux.StaticWebAssets.Manifest.cache
 C:\Users\João Pedro\Documents\SENAI\API\APIEdux\APIEdux\obj\Debug\netcoreapp3.1\staticwebassets\APIEdux.StaticWebAssets.xml
 C:\Users\João Pedro\Documents\SENAI\API\APIEdux\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.dll
-C:\Users\João Pedro\Documents\SENAI\API\APIEdux\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.xml
 C:\Users\João Pedro\Documents\SENAI\API\APIEdux\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.pdb
 C:\Users\João Pedro\Documents\SENAI\API\APIEdux\APIEdux\obj\Debug\netcoreapp3.1\APIEdux.genruntimeconfig.cache
 C:\Users\João Pedro\Documents\SENAI\API\APIEdux\APIEdux\bin\Debug\netcoreapp3.1\Microsoft.AspNetCore.JsonPatch.dll
