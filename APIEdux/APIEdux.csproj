@@ -4,7 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
   </PropertyGroup>
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DocumentationFile>C:\Users\João Pedro\Documents\SENAI\API\APIEdux/APIEdux\APIEdux.xml</DocumentationFile>
+		<DocumentationFile>C:\Users\João Pedro\Documents\SENAI\API\APIEdux\APIEdux\APIEdux.xml</DocumentationFile>
 	</PropertyGroup>
 	<ItemGroup>
 	  <Compile Remove="Migrations\20201025031316_AlterTableDica.cs" />
